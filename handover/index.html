@@ -1,0 +1,976 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:where(#tds-2026, #tds-2026 *, #tds-2026 *::before, #tds-2026 *::after) { all: revert-layer; box-sizing: border-box; }
+
+#tds-2026 {
+  font-family: -apple-system, "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #273035;
+  background: #f9f8f6;
+  overflow-x: clip;
+}
+
+.tds-display {
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* Mobile-only Linebreak Helper — desktop versteckt, mobile zeigt als Umbruch */
+.m-only { display: none; }
+.m-line { /* desktop: bleibt inline, fließt im Headline-Text mit */ }
+
+.tds-section { padding: 8vw 6vw; }
+
+.tds-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: stretch;
+}
+
+.tds-right-col {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.tds-right-col p.tds-source,
+.tds-source {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: auto;
+  padding-top: 4rem;
+  line-height: 1.5;
+}
+
+.tds-dark { background: #0a0a0a; color: white; }
+
+#s3 { background: #e9e5e1; }
+
+.tds-right-col p {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.65;
+  margin: 0 0 1.5rem;
+}
+
+.tds-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Grass-V8-Style: Bodytext-Sätze Stück für Stück sichtbar werden lassen */
+.tds-reveal-text { margin: 0 0 1.5rem; }
+.tds-reveal-line {
+  display: block;
+  font-weight: 600;
+  opacity: 0.15;
+  will-change: opacity;
+}
+/* In s4: Counter-Stats sind bereits font-weight 700 — nicht überschreiben */
+.s4-stat.tds-reveal-line { font-weight: 700; }
+
+/* ---- Section 1: Hero ---- */
+#s1-container { height: 400vh; position: relative; }
+
+#s1-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#s1-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 62%;
+  background: linear-gradient(to right, rgba(31,81,56,0.92) 0%, rgba(31,81,56,0.75) 30%, rgba(31,81,56,0.25) 55%, transparent);
+  padding: 6vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.s1-source-top {
+  font-size: 11px;
+  color: white;
+  opacity: 0;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+
+#s1-longevity {
+  position: absolute;
+  top: 65%;
+  transform: translateY(-50%);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 7rem);
+  letter-spacing: 0.12em;
+  color: white;
+  text-transform: uppercase;
+  opacity: 1;
+  will-change: opacity;
+}
+
+.s1-word-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.s1-word {
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: white;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(60px);
+  will-change: transform, opacity;
+  display: block;
+}
+
+.s1-bottom-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  opacity: 0;
+  line-height: 1.0;
+}
+
+.s1-bottom-text span {
+  display: block;
+  font-weight: 400;
+  font-size: clamp(1rem, 2.2vw, 2.5rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.6em;
+}
+
+.s1-bottom-text strong {
+  display: block;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 7rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+#s1-right {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+#s1-img-wrapper {
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+}
+
+#s1-smoke {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(50px) saturate(1.2);
+  opacity: 0.3;
+  z-index: 0;
+}
+
+#s1-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  z-index: 1;
+}
+
+#s1-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#s1-wordmark {
+  display: none;
+}
+
+#s1-bottom-box {
+  display: none;
+}
+
+.s1-bb-label { font-size: 0.85rem; opacity: 0.85; margin-bottom: 0.3rem; }
+.s1-bb-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.4rem; }
+.s1-bb-sub { font-size: 0.95rem; }
+
+/* ---- Section 5 dark ---- */
+.s5-category { margin-bottom: 2.5rem; }
+
+.s5-cat-title {
+  font-weight: 600;
+  color: white;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.s5-items { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.s5-item {
+  font-weight: 600;
+  color: white;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  padding-right: 1.25rem;
+  position: relative;
+}
+
+.s5-item::after { content: "–"; position: absolute; right: 0; opacity: 0.5; }
+
+/* ---- Section 4 stats ---- */
+.s4-stats {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.s4-stat { display: block; }
+
+.s4-counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  white-space: nowrap;
+  color: #1f5138;
+}
+
+.s4-criteria {
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  opacity: 0.7;
+  line-height: 1.8;
+}
+
+/* ---- Section 6 table ---- */
+#s6-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: start;
+  margin-bottom: 4rem;
+}
+
+#s6-header p {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.65;
+  opacity: 0.8;
+  padding-top: 1rem;
+}
+
+.s6-intro-p { text-align: right; }
+
+#s6-table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.s6-col { background: #e9e6e1; padding: 2.5rem 2rem; }
+.s6-col-accent { background: #336b4a; color: white; }
+
+.s6-col h4 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.55;
+  margin: 0 0 1.5rem;
+  font-weight: 600;
+}
+
+.s6-col-accent h4 { opacity: 0.7; color: white; }
+
+.s6-col p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.s6-col-accent p { opacity: 1; }
+
+/* SAMINA Wordmark als inline Logo in Headlines */
+.tds-logo-inline {
+  display: block;
+  width: clamp(180px, 32vw, 480px);
+  height: auto;
+  margin-bottom: 0.4em;
+}
+
+/* ---- Section 7 ---- */
+#s7 {
+  position: relative;
+  background: #336b4a;
+  overflow: hidden;
+  min-height: 60vh;
+}
+
+#s7 > .tds-left-col { position: relative; z-index: 1; }
+
+#s7-smoke {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* ---- Section 8 ---- */
+.tds-usps { list-style: none; padding: 0; margin: 2rem 0; }
+
+.tds-usps li {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.6;
+}
+
+.tds-usps li:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
+
+.tds-usps-footer {
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-top: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+#s8-right {
+  position: relative;
+  min-height: 50vh;
+  overflow: hidden;
+  background: #f0eee9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Reusable Video-Embed (YouTube lazy-load) ---- */
+.tds-video-embed {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: #f0eee9;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.tds-video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tds-video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  z-index: 2;
+}
+
+.tds-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #1f8f3b;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  padding: 0;
+  z-index: 1;
+}
+
+.tds-video-play svg { margin-left: 4px; }
+
+.tds-video-play:hover {
+  background: #1f5138;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.tds-video-embed.is-playing .tds-video-poster,
+.tds-video-embed.is-playing .tds-video-play { display: none; }
+
+/* ---- Section 9 CTA ---- */
+#s9 { text-align: center; padding: 10vw 6vw; background: #e9e5e1; }
+
+#s9 h2 {
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+#s9 > p {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  max-width: 640px;
+  margin: 0 auto 3rem;
+  opacity: 0.8;
+  line-height: 1.55;
+}
+
+.tds-btn-group {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.tds-btn-primary {
+  background: #1f5138;
+  color: white;
+  padding: 0.875rem 2.25rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  display: inline-block;
+}
+
+.tds-btn-secondary {
+  background: transparent;
+  color: #273035;
+  padding: 0.875rem 2.25rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid #273035;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  display: inline-block;
+}
+
+#s9 h2 .s9-light { font-weight: 400; }
+
+/* ---- Footer ---- */
+#s11 {
+  padding: 3rem 6vw;
+  background: #f9f8f6;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  font-size: 0.8rem;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.s11-logo {
+  font-weight: 800;
+  font-size: 1.2rem;
+  opacity: 1;
+  margin-bottom: 1rem;
+  color: #273035;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 768px) {
+  /* Mobile-Hero: gleiche Scroll-Mechanik wie Desktop, aber kürzere Scroll-Distanz und Text-Overlay full-width */
+  #s1-container { height: 280vh; }
+
+  #s1-left {
+    width: 100%;
+    padding: 8vw 6vw;
+    background: transparent;
+  }
+
+  /* Weicher grauer Text-Shadow — sanft, nur als subtile Lesbarkeits-Hilfe */
+  #s1-left .s1-word,
+  #s1-left #s1-longevity,
+  #s1-left .s1-bottom-text,
+  #s1-left .s1-source-top {
+    text-shadow: 0 2px 24px rgba(0,0,0,0.30);
+  }
+
+  /* Video soll auf Mobile das Gesicht/Detail mittig zeigen */
+  #s1-video { object-position: center center; }
+
+  /* Headlines auf Mobile: gestapelt — jede .m-line bekommt eine eigene Zeile */
+  .tds-display { font-size: clamp(2.75rem, 11vw, 5rem); line-height: 0.95; letter-spacing: -0.035em; }
+
+  /* Helper: mobile-only line break — kontrolliert das Stacking pro Headline */
+  .m-only { display: inline; }
+  .m-line { display: block; white-space: nowrap; }
+
+  /* Wortgrößen für kleine Screens */
+  .s1-word { font-size: clamp(2.5rem, 13vw, 5rem); }
+  #s1-longevity { font-size: clamp(1.8rem, 7vw, 3rem); top: 70%; }
+  .s1-bottom-text strong { font-size: clamp(2rem, 9vw, 4rem); }
+  .s1-bottom-text span { font-size: clamp(0.85rem, 3vw, 1.5rem); }
+
+  .tds-two-col { grid-template-columns: 1fr; }
+
+  #s6-header { grid-template-columns: 1fr; }
+
+  #s6-table { grid-template-columns: 1fr; }
+
+  .tds-btn-group { flex-direction: column; align-items: center; }
+
+  #s7, #s8-right { min-height: 55vw; }
+
+  /* Mobile: right-aligned content auf links zurücksetzen — wirkt im single-column Layout natürlicher */
+  .tds-right-col { text-align: left; }
+  .s6-intro-p { text-align: left !important; }
+
+  /* s5 Bullet wieder auf links */
+  .s5-item { padding-left: 1.25rem; padding-right: 0; }
+  .s5-item::after { content: none; }
+  .s5-item::before { content: "–"; position: absolute; left: 0; opacity: 0.5; }
+
+  /* Quelle nicht mehr ans Bottom pushen — direkt unter Body-Text platzieren */
+  .tds-right-col p.tds-source,
+  .tds-source { margin-top: 1.5rem; padding-top: 0; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .s1-word { opacity: 1 !important; transform: none !important; }
+  .tds-fade-up { opacity: 1 !important; transform: none !important; }
+  .tds-reveal-line { opacity: 1 !important; }
+  #s1-canvas { opacity: 1 !important; }
+}
+</style>
+
+<div id="tds-2026">
+
+  <!-- ── Section 1: Hero ── -->
+  <section id="s1-container">
+    <div id="s1-sticky">
+
+      <div id="s1-left">
+        <div class="s1-word-stack">
+          <span id="s1-longevity">LONGEVITY</span>
+          <span class="s1-word" id="word-90">90%</span>
+          <span class="s1-word" id="word-beginnt">beginnt</span>
+          <span class="s1-word" id="word-im">im</span>
+          <span class="s1-word" id="word-schlaf">Schlaf.</span>
+          <p class="s1-source-top">Quelle: Prof. W. C. Dement, Stanford, 1998</p>
+        </div>
+
+        <div class="s1-bottom-text">
+          <span>LONGEVITY</span>
+          <strong>SHAPED<br>BY<br>SLEEP</strong>
+        </div>
+      </div>
+
+      <div id="s1-right">
+        <div id="s1-img-wrapper">
+          <img id="s1-smoke" src="../assets/smoke.webp" alt="">
+          <video id="s1-video" muted playsinline webkit-playsinline preload="auto"
+                 poster="../assets/hero-poster.jpg"
+                 src="../assets/hero.mp4"></video>
+        </div>
+
+        <div id="s1-overlay">
+          <div id="s1-wordmark">SAMINA</div>
+          <div id="s1-bottom-box">
+            <div class="s1-bb-label">Jetzt zum</div>
+            <div class="s1-bb-title">Tag des Schlafes 21.06.2026</div>
+            <div class="s1-bb-sub">−15 % auf konfigurierte SAMINA Schlafsysteme &amp; Zubehör</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Section 2 ── -->
+  <section class="tds-section tds-two-col" id="s2">
+    <div class="tds-left-col">
+      <h2 class="tds-display tds-fade-up">Schlaf.<br>Dein größte Hebel.</h2>
+    </div>
+    <div class="tds-right-col tds-fade-up">
+      <p class="tds-reveal-text">
+        <span class="tds-reveal-line">Alle reden über Supplements.</span>
+        <span class="tds-reveal-line">Über Sport. Über Tracker.</span>
+        <span class="tds-reveal-line">Über Bryan Johnson und seine 200.000 €/Jahr-Routine.</span>
+      </p>
+      <p class="tds-source">Quelle: Prof. G. W. Amann-Jennson,<br>Buch „Einfach gesund schlafen", 2024</p>
+    </div>
+  </section>
+
+  <!-- ── Section 3 ── -->
+  <section class="tds-section tds-two-col" id="s3">
+    <div class="tds-left-col">
+      <h2 class="tds-display tds-fade-up"><span class="m-line">Aber: 80 %</span> <span class="m-line">entscheidet dein</span> <span class="m-line">Schlafplatz.</span></h2>
+    </div>
+    <div class="tds-right-col tds-fade-up">
+      <p class="tds-cited tds-reveal-text">
+        <span class="tds-reveal-line">Du kannst tagsüber alles richtig machen —</span>
+        <span class="tds-reveal-line">wenn du 8 Stunden auf einem Bett liegst,</span>
+        <span class="tds-reveal-line">das nicht richtig tief und erholt schlafen lässt,</span>
+        <span class="tds-reveal-line">findet keine Regeneration statt.</span>
+      </p>
+      <p class="tds-source">Quelle: Prof. G. W. Amann-Jennson,<br>Buch „Einfach gesund schlafen", 2024</p>
+    </div>
+  </section>
+
+  <!-- ── Section 4 ── -->
+  <section class="tds-section tds-two-col" id="s4">
+    <div class="tds-left-col">
+      <h2 class="tds-display tds-fade-up"><span class="m-line">Guter Schlaf</span> <span class="m-line">kann das Leben</span> <span class="m-line">verlängern.</span></h2>
+    </div>
+    <div class="tds-right-col tds-fade-up">
+      <div class="s4-stats tds-cited tds-reveal-text">
+        <span class="s4-stat tds-reveal-line"><span class="s4-counter" data-target="4.7" data-prefix="+" data-decimals="1">+4,7</span> Jahre Männer</span>
+        <span class="s4-stat tds-reveal-line"><span class="s4-counter" data-target="2.4" data-prefix="+" data-decimals="1">+2,4</span> Jahre Frauen</span>
+        <span class="s4-stat tds-reveal-line"><span class="s4-counter" data-target="30" data-prefix="−" data-suffix=" %" data-decimals="0">−30 %</span> Gesamtmortalität bei optimalen Schlafgewohnheiten</span>
+      </div>
+      <p class="tds-source">Quelle: Studie unter Beteiligung der<br>Harvard Medical School (Li, Qian et al., 2024) an 172.321 Erwachsenen</p>
+    </div>
+  </section>
+
+  <!-- ── Section 5: DARK ── -->
+  <section class="tds-section tds-two-col tds-dark" id="s5">
+    <div class="tds-left-col">
+      <h2 class="tds-display tds-fade-up" style="color:white;"><span class="m-line">Was guten</span> <span class="m-line">Schlaf wirklich</span> <span class="m-line">raubt.</span></h2>
+    </div>
+    <div class="tds-right-col tds-fade-up">
+      <div class="s5-category">
+        <div class="s5-cat-title">Lifestyle-Faktoren</div>
+        <div class="s5-items">
+          <div class="s5-item">Stress &amp; Cortisol</div>
+          <div class="s5-item">Bildschirmzeit am Abend</div>
+          <div class="s5-item">Späte Mahlzeiten, Alkohol</div>
+          <div class="s5-item">Unregelmäßiger Rhythmus</div>
+          <div class="s5-item">Wolfsstunde 3–4 Uhr</div>
+        </div>
+      </div>
+      <div class="s5-category">
+        <div class="s5-cat-title">Körperliche Faktoren</div>
+        <div class="s5-items">
+          <div class="s5-item">Rückenschmerzen, falsche Liegeposition</div>
+          <div class="s5-item">Atemnot, Schnarchen, Schlafapnoe</div>
+          <div class="s5-item">Bettklima, Temperatur</div>
+          <div class="s5-item">Mangelnde Erdung</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 6 ── -->
+  <section id="s6" class="tds-section">
+    <div id="s6-header" class="tds-fade-up">
+      <h2 class="tds-display"><span class="m-line">8 Stunden</span> <span class="m-line">Wirkung.</span> <span class="m-line">Jede Nacht.</span></h2>
+      <p class="s6-intro-p">120 Tage pro Jahr verbringst du im Bett.<br>Das ist die größte Investition,<br>die du in deine Gesundheit machen kannst.</p>
+    </div>
+    <div id="s6-table" class="tds-fade-up">
+      <div class="s6-col">
+        <h4>Tagsüber</h4>
+        <p>1 Smoothie wirkt 30 Min<br>1 Workout wirkt 24 h<br>Supplement wirkt punktuell</p>
+      </div>
+      <div class="s6-col s6-col-accent">
+        <h4>Schlaf</h4>
+        <p>Schlaf wirkt 8 h<br>Tiefschlaf wirkt aufs Hormonsystem<br>Regeneration läuft systemisch</p>
+      </div>
+      <div class="s6-col">
+        <h4>Schlafplatz</h4>
+        <p>Schlafplatz wirkt 8 h × 365 Nächte<br>Wirbelsäule, Atmung, Klima, Erdung<br>Multiplikator über Jahrzehnte</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 7 ── -->
+  <section class="tds-section tds-two-col" id="s7">
+    <img id="s7-smoke" src="../assets/smoke.webp" alt="">
+    <div class="tds-left-col tds-fade-up">
+      <h2 class="tds-display" style="color:white;">
+        <img src="../assets/samina-logo-white.webp" alt="SAMINA" class="tds-logo-inline">
+        Longevity beginnt im Schlaf.
+      </h2>
+    </div>
+  </section>
+
+  <!-- ── Section 8 ── -->
+  <section class="tds-section tds-two-col" id="s8">
+    <div class="tds-left-col tds-fade-up">
+      <h2 class="tds-display" style="margin-bottom:2rem;"><span class="m-line">Warum</span> <span class="m-line">SAMINA.</span></h2>
+      <ul class="tds-usps">
+        <li>Orthopädisch richtig gelagerte Wirbelsäule und individuell ausgerichtete Nacken-Kopflinie, egal ob Bauch-, Rücken- oder Seitenschläfer.</li>
+        <li>Optimale Durchblutung durch Druckentlastung.</li>
+        <li>Hohe Regeneration durch integrierte Erdungs- und Schrägschlaftechnik.</li>
+        <li>Ideales Bettklima, kühl oder warm.</li>
+      </ul>
+      <p class="tds-usps-footer">Ohne Metall. Reine Naturmaterialien. Crafted in the Austrian Alps.</p>
+    </div>
+    <div id="s8-right" class="tds-fade-up">
+      <div class="tds-video-embed" data-yt="AO3BYyDgxb4">
+        <img class="tds-video-poster" src="../assets/schlafsystem-thumb.webp" alt="SAMINA Schlafsystem">
+        <button class="tds-video-play" type="button" aria-label="Video abspielen">
+          <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+            <path d="M8 5v14l11-7z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 9: CTA ── -->
+  <section id="s9" class="tds-fade-up">
+    <h2>
+      <span class="s9-light">Schlafforschung seit 1989.</span><br>
+      Schlafsysteme &amp;<br>
+      First Mover für Longevity Anwendungen in DACH.
+    </h2>
+    <p>Von Ärzten empfohlen, von Sportlern genutzt, von Kunden geliebt — und in führenden Premium-Hotels weltweit im Einsatz.</p>
+    <div class="tds-btn-group">
+      <a href="#" class="tds-btn-primary">Zum Schlafsystem</a>
+      <a href="#" class="tds-btn-secondary">Filiale kontaktieren</a>
+    </div>
+  </section>
+
+  <!-- ── Section 10: HubSpot ── -->
+  <div style="padding: 4rem 6vw; background: #f9f8f6;">
+    <!-- HUBSPOT FORM EMBED — Form ID: HUBSPOT_FORM_ID_HIER_EINFÜGEN -->
+  </div>
+
+</div>
+
+<script src="gsap.min.js"></script>
+<script src="ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth < 768;
+
+  if (prefersReducedMotion) {
+    document.querySelectorAll('.tds-fade-up').forEach(function (el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    return;
+  }
+
+  // Start immediately — no waiting, video scrubbing hooks itself when ready
+  gsap.registerPlugin(ScrollTrigger);
+  // Same scroll-driven hero on all viewports (mobile uses kürzere Scroll-Distanz via CSS)
+  initHeroDesktop();
+  initSectionFadeUps();
+  initVideoEmbeds();
+  initStatCounters();
+  initLineReveals();
+
+  function initVideoEmbeds() {
+    document.querySelectorAll('.tds-video-embed').forEach(function (embed) {
+      var ytId = embed.dataset.yt;
+      if (!ytId) return;
+      function play() {
+        if (embed.classList.contains('is-playing')) return;
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0&modestbranding=1';
+        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('title', 'SAMINA Video');
+        embed.appendChild(iframe);
+        embed.classList.add('is-playing');
+      }
+      embed.addEventListener('click', play);
+    });
+  }
+
+  function initHeroDesktop() {
+    var container = document.getElementById('s1-container');
+    var smokeEl   = document.getElementById('s1-smoke');
+    var video     = document.getElementById('s1-video');
+
+    // ── Video scrubbing — native scroll + rAF ──
+    var targetT = 0, lerpT = 0, rafId = null;
+    var vidDur  = 8.0; // fallback; updated once metadata loads
+
+    video.addEventListener('loadedmetadata', function () {
+      if (video.duration && isFinite(video.duration)) vidDur = video.duration;
+      // iOS Safari needs play-then-pause to unlock currentTime scrubbing
+      var primed = video.play();
+      if (primed && typeof primed.then === 'function') {
+        primed.then(function () { video.pause(); onScroll(); }).catch(function () { onScroll(); });
+      } else {
+        try { video.pause(); } catch (e) {}
+        onScroll();
+      }
+    });
+
+    function getProgress() {
+      var top    = container.getBoundingClientRect().top;
+      var height = container.offsetHeight - window.innerHeight;
+      return Math.max(0, Math.min(1, -top / height));
+    }
+
+    function tickVideo() {
+      lerpT += (targetT - lerpT) * 0.1;
+      try { video.currentTime = lerpT; } catch (e) {}
+      rafId = Math.abs(targetT - lerpT) > 0.02 ? requestAnimationFrame(tickVideo) : null;
+    }
+
+    function onScroll() {
+      targetT = getProgress() * vidDur;
+      if (!rafId) rafId = requestAnimationFrame(tickVideo);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // iOS Safari unlock: nach erstem Touch play/pause aufrufen, falls noch nicht gemacht
+    var unlocked = false;
+    function unlockSeek() {
+      if (unlocked) return;
+      unlocked = true;
+      var p = video.play();
+      if (p && typeof p.then === 'function') p.then(function(){ video.pause(); onScroll(); }).catch(function(){});
+    }
+    document.addEventListener('touchstart', unlockSeek, { once: true, passive: true });
+
+    // ── GSAP timeline — text animations only (scrub for smooth reveals) ──
+    gsap.set(smokeEl, { scale: 1.0 });
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 2
+      }
+    });
+
+    var longevityEl  = document.getElementById('s1-longevity');
+    var sourceEl     = document.querySelector('.s1-source-top');
+    var bottomTextEl = document.querySelector('.s1-bottom-text');
+    tl.to(longevityEl, { opacity: 0, ease: 'sine.inOut', duration: 0.07 }, 0.0);
+    tl.to(sourceEl,    { opacity: 0.7, ease: 'sine.inOut', duration: 0.09 }, 0.50);
+
+    var words = [
+      { id: 'word-90',      s: 0.05, e: 0.18 },
+      { id: 'word-beginnt', s: 0.20, e: 0.33 },
+      { id: 'word-im',      s: 0.36, e: 0.47 },
+      { id: 'word-schlaf',  s: 0.50, e: 0.63 }
+    ];
+    words.forEach(function (w) {
+      tl.fromTo(document.getElementById(w.id),
+        { opacity: 0, y: 60 },
+        { opacity: 1, y: 0, ease: 'power2.out', duration: w.e - w.s },
+        w.s
+      );
+    });
+
+    // Schlusssequenz: Wörter + Quelle ausblenden, LONGEVITY. einblenden
+    var allWords = words.map(function(w) { return document.getElementById(w.id); });
+    tl.to(allWords,  { opacity: 0, ease: 'sine.inOut', duration: 0.08 }, 0.67);
+    tl.to(sourceEl,  { opacity: 0, ease: 'sine.inOut', duration: 0.08 }, 0.67);
+    tl.to(bottomTextEl, { opacity: 1, ease: 'sine.inOut', duration: 0.10 }, 0.80);
+
+    tl.fromTo(smokeEl, { scale: 1.0 }, { scale: 1.08, ease: 'none', duration: 1.0 }, 0);
+  }
+
+  function initStatCounters() {
+    function fmt(val, decimals) {
+      return val.toFixed(decimals).replace('.', ',');
+    }
+    document.querySelectorAll('.s4-counter').forEach(function (el) {
+      var target = parseFloat(el.dataset.target);
+      if (isNaN(target)) return;
+      var prefix = el.dataset.prefix || '';
+      var suffix = el.dataset.suffix || '';
+      var decimals = parseInt(el.dataset.decimals || '0', 10);
+
+      // Sofort auf 0 setzen, damit kein Flash der finalen Werte vor der Animation
+      el.textContent = prefix + fmt(0, decimals) + suffix;
+
+      var obj = { val: 0 };
+      gsap.to(obj, {
+        val: target,
+        duration: 1.8,
+        ease: 'power2.out',
+        onUpdate: function () {
+          el.textContent = prefix + fmt(obj.val, decimals) + suffix;
+        },
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          once: true
+        }
+      });
+    });
+  }
+
+  function initLineReveals() {
+    document.querySelectorAll('.tds-reveal-text').forEach(function (container) {
+      var lines = container.querySelectorAll('.tds-reveal-line');
+      if (!lines.length) return;
+
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 80%',
+          end: 'bottom 55%',
+          scrub: 1
+        }
+      });
+      lines.forEach(function (line, i) {
+        tl.to(line, { opacity: 1, ease: 'none', duration: 1 }, i * 0.5);
+      });
+    });
+  }
+
+  function initSectionFadeUps() {
+    document.querySelectorAll('.tds-fade-up').forEach(function (el) {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          once: true
+        }
+      });
+    });
+  }
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { ScrollTrigger.refresh(); }, 250);
+  });
+
+})();
+</script>
