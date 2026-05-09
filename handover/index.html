@@ -353,14 +353,6 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
 .s6-col-accent p { opacity: 1; }
 
-/* SAMINA Wordmark als inline Logo in Headlines */
-.tds-logo-inline {
-  display: block;
-  width: clamp(180px, 32vw, 480px);
-  height: auto;
-  margin-bottom: 0.4em;
-}
-
 /* ---- Section 7 ---- */
 #s7 {
   position: relative;
@@ -469,6 +461,151 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 .tds-video-embed.is-playing .tds-video-poster,
 .tds-video-embed.is-playing .tds-video-play { display: none; }
 
+/* ---- Section 8: Warum SAMINA — scrub cinema (assembly video, 6 timed text stages) ---- */
+#s8-container {
+  position: relative;
+  height: 450vh;
+  background: #c5b49f;
+}
+
+#s8-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #c5b49f;
+}
+
+#s8-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #c5b49f;
+}
+
+#s8-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  padding: 4vw 6vw;
+}
+
+/* Sehr leichter Hellverlauf von links-oben — Lesbarkeit ohne harten Scrim */
+#s8-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(245,240,232,0.55) 0%, rgba(245,240,232,0.15) 35%, transparent 55%);
+  pointer-events: none;
+}
+
+.s8-text {
+  position: absolute;
+  top: 4vw;
+  left: 6vw;
+  max-width: 55%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.s8-text.is-active { opacity: 1; }
+
+.s8-eyebrow {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #273035;
+  opacity: 0.65;
+  margin-bottom: 1.25rem;
+}
+
+.s8-headline {
+  font-weight: 800;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #273035;
+}
+
+#s8-headline-warum {
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #273035;
+}
+
+@media (max-width: 768px) {
+  #s8-container { height: 350vh; }
+  #s8-overlay { padding: 8vw 6vw; }
+
+  /* Mobile: Bild auf die linke Hälfte fokussieren (richtige Liegeposition).
+     Crop blendet den rechten Vergleichs-Kopf aus. */
+  #s8-video { object-position: 28% center; transform: scale(1.18); transform-origin: 28% center; }
+
+  /* Text overlays sitzen oben links, wie auf Desktop */
+  .s8-text {
+    top: 8vw;
+    bottom: auto;
+    left: 6vw;
+    right: 6vw;
+    max-width: 100%;
+  }
+
+  .s8-eyebrow { font-size: 0.72rem; margin-bottom: 0.75rem; }
+  .s8-headline { font-size: clamp(1.35rem, 5.6vw, 2rem); line-height: 1.1; }
+  #s8-headline-warum { font-size: clamp(2.75rem, 11vw, 5rem); }
+}
+
+/* ---- Section 8c: Closing slate (smoke bg, scroll-revealed white text) ---- */
+#s8-closing {
+  position: relative;
+  background: #273035;
+  overflow: hidden;
+  padding: 14vw 6vw;
+  text-align: center;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s8-closing-smoke {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.s8-closing-text {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.s8-closing-text .tds-reveal-line {
+  font-weight: 800;
+  opacity: 0.5;
+}
+
 /* ---- Section 9 CTA ---- */
 #s9 { text-align: center; padding: 10vw 6vw; background: #e9e5e1; }
 
@@ -525,6 +662,39 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 }
 
 #s9 h2 .s9-light { font-weight: 400; }
+
+/* ---- Section 10: HubSpot + Brand-Lockup ---- */
+#s10 {
+  background: #f9f8f6;
+  padding: 4rem 6vw 6rem;
+}
+
+.s10-form { max-width: 720px; margin: 0 auto; }
+
+.s10-brand {
+  margin-top: 5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.s10-logo {
+  height: clamp(2.25rem, 4vw, 3.25rem);
+  width: auto;
+  display: block;
+}
+
+.s10-tagline {
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  line-height: 1.55;
+  color: #273035;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.s10-tagline strong { font-weight: 700; }
 
 /* ---- Footer ---- */
 #s11 {
@@ -674,7 +844,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   <!-- ── Section 3 ── -->
   <section class="tds-section tds-two-col" id="s3">
     <div class="tds-left-col">
-      <h2 class="tds-display tds-fade-up"><span class="m-line">Aber: 80 %</span> <span class="m-line">entscheidet dein</span> <span class="m-line">Schlafplatz.</span></h2>
+      <h2 class="tds-display tds-fade-up"><span class="m-line">80 %</span> <span class="m-line">entscheidet dein</span> <span class="m-line">Schlafplatz.</span></h2>
     </div>
     <div class="tds-right-col tds-fade-up">
       <p class="tds-cited tds-reveal-text">
@@ -757,43 +927,64 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     <img id="s7-smoke" src="../assets/smoke.webp" alt="">
     <div class="tds-left-col tds-fade-up">
       <h2 class="tds-display" style="color:white;">
-        <img src="../assets/samina-logo-white.webp" alt="SAMINA" class="tds-logo-inline">
         <span class="m-line">Longevity</span> <span class="m-line">beginnt</span> <span class="m-line">im Schlaf.</span>
       </h2>
     </div>
   </section>
 
-  <!-- ── Section 8 ── -->
-  <section class="tds-section tds-two-col" id="s8">
-    <div class="tds-left-col tds-fade-up">
-      <h2 class="tds-display" style="margin-bottom:2rem;"><span class="m-line">Warum</span> <span class="m-line">SAMINA.</span></h2>
-      <ul class="tds-usps">
-        <li>Orthopädisch richtig gelagerte Wirbelsäule und individuell ausgerichtete Nacken-Kopflinie, egal ob Bauch-, Rücken- oder Seitenschläfer.</li>
-        <li>Optimale Durchblutung durch Druckentlastung.</li>
-        <li>Hohe Regeneration durch integrierte Erdungs- und Schrägschlaftechnik.</li>
-        <li>Ideales Bettklima, kühl oder warm.</li>
-      </ul>
-      <p class="tds-usps-footer">Ohne Metall. Reine Naturmaterialien. Crafted in the Austrian Alps.</p>
-    </div>
-    <div id="s8-right" class="tds-fade-up">
-      <div class="tds-video-embed" data-yt="AO3BYyDgxb4">
-        <img class="tds-video-poster" src="../assets/schlafsystem-thumb.webp" alt="SAMINA Schlafsystem">
-        <button class="tds-video-play" type="button" aria-label="Video abspielen">
-          <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
-            <path d="M8 5v14l11-7z" fill="white"/>
-          </svg>
-        </button>
+  <!-- ── Section 8: Warum SAMINA — scroll-scrubbed assembly with timed text overlays ── -->
+  <!-- Stage timing matches the moments each component visually settles in warum-samina.mp4 (46.23s):
+       0  –  6   Bett-Preview (Warum SAMINA. headline)
+       6  – 13   Lamellenrost
+      13  – 21   Lokosana Padd
+      21  – 28   Matratze
+      28  – 40   Kissen (Bolster, Cutaway, Lokosana-Padd-Top, Vergleichs-Köpfe)
+      40  – 46.23  Bettdecke + Airflow + finales Bett -->
+  <section id="s8-container">
+    <div id="s8-sticky">
+      <video id="s8-video" muted playsinline webkit-playsinline preload="auto"
+             src="../assets/videos/warum-samina.mp4"></video>
+      <div id="s8-overlay">
+        <div class="s8-text" data-from="0" data-to="6">
+          <h2 id="s8-headline-warum"><span class="m-line">Warum</span> <span class="m-line">SAMINA.</span></h2>
+        </div>
+        <div class="s8-text" data-from="6" data-to="13">
+          <span class="s8-eyebrow">SAMINA Lamellenrost</span>
+          <h3 class="s8-headline">Orthopädisch richtige Wirbelsäulenlagerung.</h3>
+        </div>
+        <div class="s8-text" data-from="13" data-to="21">
+          <span class="s8-eyebrow">SAMINA Lokosona&reg;</span>
+          <h3 class="s8-headline">Hohe Regeneration — durch integrierte Erdungstechnik.</h3>
+        </div>
+        <div class="s8-text" data-from="21" data-to="28">
+          <span class="s8-eyebrow">SAMINA Kautschuck Matratze</span>
+          <h3 class="s8-headline">Optimale Durchblutung — durch Druckentlastung.</h3>
+        </div>
+        <div class="s8-text" data-from="28" data-to="40">
+          <span class="s8-eyebrow">SAMINA Kissen</span>
+          <h3 class="s8-headline">Individuell ausgerichtete Nacken-Kopflinie — Bauch, Rücken, Seite.</h3>
+        </div>
+        <div class="s8-text" data-from="40" data-to="46.23">
+          <span class="s8-eyebrow">SAMINA Schafschur-Bettdecke mit biokeramischer Baumwolle</span>
+          <h3 class="s8-headline">Ideales Bettklima — kühl oder warm.</h3>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ── Section 8c: Closing — smoke background, scroll-revealed white text ── -->
+  <section id="s8-closing">
+    <img class="s8-closing-smoke" src="../assets/smoke.webp" alt="">
+    <p class="tds-reveal-text s8-closing-text">
+      <span class="tds-reveal-line">Ohne Metall.</span>
+      <span class="tds-reveal-line">Reine Naturmaterialien.</span>
+      <span class="tds-reveal-line">Crafted in the Austrian Alps.</span>
+    </p>
+  </section>
+
   <!-- ── Section 9: CTA ── -->
   <section id="s9" class="tds-fade-up">
-    <h2>
-      <span class="s9-light">Schlafforschung seit 1989.</span><br>
-      Schlafsysteme &amp;<br>
-      First Mover für Longevity Anwendungen in DACH.
-    </h2>
+    <h2>Werde zum SAMINA Tief-Schläfer.</h2>
     <p>Von Ärzten empfohlen, von Sportlern genutzt, von Kunden geliebt — und in führenden Premium-Hotels weltweit im Einsatz.</p>
     <div class="tds-btn-group">
       <a href="https://samina.com/system/" class="tds-btn-primary" target="_blank" rel="noopener">Zum Schlafsystem</a>
@@ -801,10 +992,20 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     </div>
   </section>
 
-  <!-- ── Section 10: HubSpot ── -->
-  <div style="padding: 4rem 6vw; background: #f9f8f6;">
-    <!-- HUBSPOT FORM EMBED — Form ID: HUBSPOT_FORM_ID_HIER_EINFÜGEN -->
-  </div>
+  <!-- ── Section 10: HubSpot + Brand-Lockup ── -->
+  <section id="s10">
+    <div class="s10-form">
+      <!-- HUBSPOT FORM EMBED — Form ID: HUBSPOT_FORM_ID_HIER_EINFÜGEN -->
+    </div>
+    <div class="s10-brand">
+      <img class="s10-logo" src="../assets/samina%20logo%20sw.png" alt="SAMINA">
+      <p class="s10-tagline">
+        Schlafforschung seit 1989.<br>
+        <strong>Schlafsysteme &amp;<br>
+        First Mover für Longevity Anwendungen in DACH.</strong>
+      </p>
+    </div>
+  </section>
 
 </div>
 
@@ -831,6 +1032,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   initVideoEmbeds();
   initStatCounters();
   initLineReveals();
+  initS8Scrub();
 
   function initVideoEmbeds() {
     document.querySelectorAll('.tds-video-embed').forEach(function (embed) {
@@ -969,6 +1171,76 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         }
       });
     });
+  }
+
+  function initS8Scrub() {
+    var container = document.getElementById('s8-container');
+    var video     = document.getElementById('s8-video');
+    var texts     = document.querySelectorAll('#s8-overlay .s8-text');
+    if (!container || !video) return;
+
+    var ranges = Array.prototype.map.call(texts, function (t) {
+      return { el: t, from: parseFloat(t.dataset.from), to: parseFloat(t.dataset.to) };
+    });
+
+    var targetT = 0, lerpT = 0, rafId = null;
+    var vidDur = 47.23;
+    var currentText = -1;
+
+    function prime() {
+      if (video.duration && isFinite(video.duration)) vidDur = video.duration;
+      var p = video.play();
+      if (p && typeof p.then === 'function') {
+        p.then(function () { video.pause(); onScroll(); }).catch(function () { onScroll(); });
+      } else {
+        try { video.pause(); } catch (e) {}
+        onScroll();
+      }
+    }
+
+    if (video.readyState >= 1) prime();
+    else video.addEventListener('loadedmetadata', prime, { once: true });
+
+    function getProgress() {
+      var top = container.getBoundingClientRect().top;
+      var height = container.offsetHeight - window.innerHeight;
+      return Math.max(0, Math.min(1, -top / height));
+    }
+
+    function updateText(t) {
+      var idx = -1;
+      for (var i = 0; i < ranges.length; i++) {
+        if (t >= ranges[i].from && t < ranges[i].to) { idx = i; break; }
+      }
+      if (idx === -1) idx = ranges.length - 1; // letzte Range bei t==duration
+      if (idx === currentText) return;
+      currentText = idx;
+      ranges.forEach(function (r, i) { r.el.classList.toggle('is-active', i === idx); });
+    }
+
+    function tickVideo() {
+      lerpT += (targetT - lerpT) * 0.1;
+      try { video.currentTime = lerpT; } catch (e) {}
+      updateText(lerpT);
+      rafId = Math.abs(targetT - lerpT) > 0.02 ? requestAnimationFrame(tickVideo) : null;
+    }
+
+    function onScroll() {
+      targetT = getProgress() * vidDur;
+      if (!rafId) rafId = requestAnimationFrame(tickVideo);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // iOS Safari unlock — beim ersten Touch play/pause aufrufen, um currentTime-Scrubbing zu erlauben
+    var unlocked = false;
+    function unlockSeek() {
+      if (unlocked) return;
+      unlocked = true;
+      var p = video.play();
+      if (p && typeof p.then === 'function') p.then(function () { video.pause(); onScroll(); }).catch(function () {});
+    }
+    document.addEventListener('touchstart', unlockSeek, { once: true, passive: true });
   }
 
   function initLineReveals() {
