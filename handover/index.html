@@ -411,7 +411,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
 /* ---- Section 7b: Logo brand interlude (sticky scroll-scrubbed video) ---- */
 #s7-logo-container {
-  height: 130vh;
+  height: 160vh;
   position: relative;
 }
 
@@ -454,7 +454,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 }
 
 @media (max-width: 768px) {
-  #s7-logo-container { height: 125vh; }
+  #s7-logo-container { height: 145vh; }
   /* Logo-Video ist landscape gerendert; auf Hochkant ohne Crop einpassen,
      damit das volle SAMINA-Logo sichtbar bleibt. Grüne Ränder = sticky bg. */
   #s7-logo-video { object-fit: contain; background: #1f5138; }
@@ -1517,12 +1517,15 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     var targetT = 0, lerpT = 0, rafId = null;
     var vidDur = 2.5;
     // Scroll-Progress in drei Phasen:
-    //   0 → VIDEO_PHASE_END : Video scrubt 0 → vidDur (Logo dissolved)
-    //   VIDEO_PHASE_END → TEXT_FADE_START : Pause / Weissraum (Logo verklungen, noch kein Text)
+    //   0 → VIDEO_PHASE_END : Video scrubt 0 → (vidDur × VIDEO_END_FRACTION)
+    //                        Wir trimmen am Ende, damit nicht das voll-weisse Frame
+    //                        stehenbleibt — gerade noch Grün in den Ecken.
+    //   VIDEO_PHASE_END → TEXT_FADE_START : kurze Atempause
     //   TEXT_FADE_START → TEXT_FADE_END : "Longevity beginnt im Schlaf" fadet ein
-    var VIDEO_PHASE_END = 0.40;
-    var TEXT_FADE_START = 0.45;
-    var TEXT_FADE_END   = 0.65;
+    var VIDEO_PHASE_END   = 0.65;
+    var VIDEO_END_FRACTION = 0.80;
+    var TEXT_FADE_START   = 0.70;
+    var TEXT_FADE_END     = 0.88;
 
     function prime() {
       if (video.duration && isFinite(video.duration)) vidDur = video.duration;
@@ -1547,7 +1550,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     }
 
     function tickVideo() {
-      lerpT += (targetT - lerpT) * 0.3;
+      lerpT += (targetT - lerpT) * 0.18;
       if (!isNaN(lerpT)) {
         try { video.currentTime = lerpT; } catch (e) {}
       }
@@ -1557,7 +1560,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     function onScroll() {
       var p = getProgress();
       var videoP = Math.min(1, p / VIDEO_PHASE_END);
-      targetT = videoP * vidDur;
+      targetT = videoP * vidDur * VIDEO_END_FRACTION;
       if (textEl) {
         var span = TEXT_FADE_END - TEXT_FADE_START;
         var tp = span > 0 ? (p - TEXT_FADE_START) / span : 0;
