@@ -435,6 +435,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 6vw;
@@ -451,6 +452,16 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: #6b6f72;
+}
+
+.s7-logo-subline {
+  margin: clamp(1.2rem, 2.4vw, 2.4rem) 0 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.4vw, 1.4rem);
+  letter-spacing: 0.04em;
+  color: #6b6f72;
+  opacity: 0.85;
 }
 
 @media (max-width: 768px) {
@@ -1120,7 +1131,21 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     </div>
   </section>
 
-  <!-- ── Section 6 ── -->
+  <!-- ── Section 6 (vormals 7b): SAMINA Logo brand interlude (scroll-scrubbed) ── -->
+  <section id="s7-logo-container">
+    <div id="s7-logo-sticky">
+      <video id="s7-logo-video" muted playsinline webkit-playsinline preload="auto"
+             src="../assets/videos/logo-animation.mp4?v=20260511f"></video>
+      <div id="s7-logo-text" aria-hidden="true">
+        <h2 class="s7-logo-headline">
+          <span class="m-line">Longevity</span> <span class="m-line">beginnt</span> <span class="m-line">im Schlaf.</span>
+        </h2>
+        <p class="s7-logo-subline">SAMINA. Schlafforschung seit 1989.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 7 (vormals 6): Investitions-Frame ── -->
   <section id="s6" class="tds-section">
     <div id="s6-header" class="tds-fade-up">
       <h2 class="tds-display"><span class="m-line">8 Stunden</span> <span class="m-line">Wirkung.</span> <span class="m-line">Jede Nacht.</span></h2>
@@ -1137,19 +1162,6 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
             <span class="s6-eq-tail">Stunden jedes Jahr.</span>
           </p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Section 7b: SAMINA Logo brand interlude (scroll-scrubbed) ── -->
-  <section id="s7-logo-container">
-    <div id="s7-logo-sticky">
-      <video id="s7-logo-video" muted playsinline webkit-playsinline preload="auto"
-             src="../assets/videos/logo-animation.mp4?v=20260511f"></video>
-      <div id="s7-logo-text" aria-hidden="true">
-        <h2 class="s7-logo-headline">
-          <span class="m-line">Longevity</span> <span class="m-line">beginnt</span> <span class="m-line">im Schlaf.</span>
-        </h2>
       </div>
     </div>
   </section>
