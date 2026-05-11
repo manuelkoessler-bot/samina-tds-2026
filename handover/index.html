@@ -1520,9 +1520,9 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     //   0 → VIDEO_PHASE_END : Video scrubt 0 → vidDur (Logo dissolved)
     //   VIDEO_PHASE_END → TEXT_FADE_START : Pause / Weissraum (Logo verklungen, noch kein Text)
     //   TEXT_FADE_START → TEXT_FADE_END : "Longevity beginnt im Schlaf" fadet ein
-    var VIDEO_PHASE_END = 0.50;
-    var TEXT_FADE_START = 0.70;
-    var TEXT_FADE_END   = 0.85;
+    var VIDEO_PHASE_END = 0.30;
+    var TEXT_FADE_START = 0.40;
+    var TEXT_FADE_END   = 0.55;
 
     function prime() {
       if (video.duration && isFinite(video.duration)) vidDur = video.duration;
