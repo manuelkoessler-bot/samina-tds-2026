@@ -847,7 +847,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
           <img id="s1-smoke" src="../assets/smoke.webp" alt="">
           <video id="s1-video" muted playsinline webkit-playsinline preload="auto"
                  poster="../assets/hero-poster.jpg"
-                 src="../assets/hero.mp4"></video>
+                 src="../assets/hero.mp4?v=20260510b"></video>
         </div>
 
         <div id="s1-overlay">
@@ -1181,7 +1181,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         trigger: container,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.7,
+        scrub: 0.3,
         invalidateOnRefresh: true
       }
     });
@@ -1189,15 +1189,23 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     var longevityEl  = document.getElementById('s1-longevity');
     var sourceEl     = document.querySelector('.s1-source-top');
     var bottomTextEl = document.querySelector('.s1-bottom-text');
-    // LONGEVITY muss vollständig weg sein, bevor word-90 startet, sonst überlappen sich beide
-    tl.to(longevityEl, { opacity: 0, ease: 'sine.inOut', duration: 0.10 }, 0.0);
-    tl.to(sourceEl,    { opacity: 0.7, ease: 'sine.inOut', duration: 0.09 }, 0.55);
+    // LONGEVITY hält die ersten 8% Scroll sichtbar, fadet dann komplett bevor word-90 startet.
+    // gsap.set anchored den Initial-State, immediateRender:false verhindert dass das fromTo
+    // den Anfangswert sofort applied bevor der Trigger aktiv wird.
+    gsap.set(longevityEl, { opacity: 1 });
+    tl.fromTo(longevityEl,
+      { opacity: 1 },
+      { opacity: 0, ease: 'sine.inOut', duration: 0.06, immediateRender: false },
+      0.08
+    );
+    tl.to(sourceEl, { opacity: 0.7, ease: 'sine.inOut', duration: 0.09 }, 0.55);
 
+    // Wort-Stack startet erst nach einem deutlichen Gap, damit LONGEVITY garantiert weg ist.
     var words = [
-      { id: 'word-90',      s: 0.12, e: 0.22 },
-      { id: 'word-beginnt', s: 0.24, e: 0.35 },
-      { id: 'word-im',      s: 0.38, e: 0.48 },
-      { id: 'word-schlaf',  s: 0.51, e: 0.63 }
+      { id: 'word-90',      s: 0.20, e: 0.28 },
+      { id: 'word-beginnt', s: 0.30, e: 0.38 },
+      { id: 'word-im',      s: 0.40, e: 0.48 },
+      { id: 'word-schlaf',  s: 0.51, e: 0.62 }
     ];
     words.forEach(function (w) {
       tl.fromTo(document.getElementById(w.id),
