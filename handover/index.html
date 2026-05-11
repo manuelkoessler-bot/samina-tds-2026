@@ -411,7 +411,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
 /* ---- Section 7b: Logo brand interlude (sticky scroll-scrubbed video) ---- */
 #s7-logo-container {
-  height: 280vh;
+  height: 180vh;
   position: relative;
 }
 
@@ -454,7 +454,10 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 }
 
 @media (max-width: 768px) {
-  #s7-logo-container { height: 240vh; }
+  #s7-logo-container { height: 170vh; }
+  /* Logo-Video ist landscape gerendert; auf Hochkant ohne Crop einpassen,
+     damit das volle SAMINA-Logo sichtbar bleibt. Grüne Ränder = sticky bg. */
+  #s7-logo-video { object-fit: contain; background: #1f5138; }
   .s7-logo-headline { font-size: clamp(2rem, 10vw, 3.5rem); }
 }
 
@@ -1142,7 +1145,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   <section id="s7-logo-container">
     <div id="s7-logo-sticky">
       <video id="s7-logo-video" muted playsinline webkit-playsinline preload="auto"
-             src="../assets/videos/logo-animation.mp4?v=20260511e"></video>
+             src="../assets/videos/logo-animation.mp4?v=20260511f"></video>
       <div id="s7-logo-text" aria-hidden="true">
         <h2 class="s7-logo-headline">
           <span class="m-line">Longevity</span> <span class="m-line">beginnt</span> <span class="m-line">im Schlaf.</span>
@@ -1247,7 +1250,6 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   <!-- ── Section 9: CTA ── -->
   <section id="s9" class="tds-fade-up">
     <h2>Werde zum SAMINA Tief-Schläfer.</h2>
-    <p>Von Ärzten empfohlen, von Sportlern genutzt, von Kunden geliebt — und in führenden Premium-Hotels weltweit im Einsatz.</p>
     <div class="tds-btn-group">
       <a href="https://samina.com/system/" class="tds-btn-primary" target="_blank" rel="noopener">Zum Schlafsystem</a>
       <a href="https://samina.com/fachgeschaefte/" class="tds-btn-secondary" target="_blank" rel="noopener">Filiale kontaktieren</a>
@@ -1512,14 +1514,14 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     if (!container || !video) return;
 
     var targetT = 0, lerpT = 0, rafId = null;
-    var vidDur = 5.04;
+    var vidDur = 2.5;
     // Scroll progress is split into two phases:
-    //   0 → VIDEO_PHASE_END : scrubs video 0 → vidDur
+    //   0 → VIDEO_PHASE_END : scrubs video 0 → vidDur (logo dissolves into white;
+    //                        the last frame still shows green slivers on the sides)
     //   TEXT_FADE_START → 1 : fades in the gray "Longevity beginnt im Schlaf" overlay
-    //                        (video stays frozen on its final white frame)
-    var VIDEO_PHASE_END = 0.55;
-    var TEXT_FADE_START = 0.62;
-    var TEXT_FADE_END   = 0.95;
+    var VIDEO_PHASE_END = 0.75;
+    var TEXT_FADE_START = 0.30;
+    var TEXT_FADE_END   = 0.60;
 
     function prime() {
       if (video.duration && isFinite(video.duration)) vidDur = video.duration;
