@@ -411,7 +411,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
 /* ---- Section 7b: Logo brand interlude (sticky scroll-scrubbed video) ---- */
 #s7-logo-container {
-  height: 180vh;
+  height: 130vh;
   position: relative;
 }
 
@@ -454,7 +454,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 }
 
 @media (max-width: 768px) {
-  #s7-logo-container { height: 170vh; }
+  #s7-logo-container { height: 125vh; }
   /* Logo-Video ist landscape gerendert; auf Hochkant ohne Crop einpassen,
      damit das volle SAMINA-Logo sichtbar bleibt. Grüne Ränder = sticky bg. */
   #s7-logo-video { object-fit: contain; background: #1f5138; }
@@ -1520,9 +1520,9 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     //   0 → VIDEO_PHASE_END : Video scrubt 0 → vidDur (Logo dissolved)
     //   VIDEO_PHASE_END → TEXT_FADE_START : Pause / Weissraum (Logo verklungen, noch kein Text)
     //   TEXT_FADE_START → TEXT_FADE_END : "Longevity beginnt im Schlaf" fadet ein
-    var VIDEO_PHASE_END = 0.30;
-    var TEXT_FADE_START = 0.40;
-    var TEXT_FADE_END   = 0.55;
+    var VIDEO_PHASE_END = 0.40;
+    var TEXT_FADE_START = 0.45;
+    var TEXT_FADE_END   = 0.65;
 
     function prime() {
       if (video.duration && isFinite(video.duration)) vidDur = video.duration;
@@ -1547,7 +1547,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     }
 
     function tickVideo() {
-      lerpT += (targetT - lerpT) * 0.1;
+      lerpT += (targetT - lerpT) * 0.3;
       if (!isNaN(lerpT)) {
         try { video.currentTime = lerpT; } catch (e) {}
       }
