@@ -429,6 +429,32 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   z-index: 0;
 }
 
+/* ---- Section 7b: Logo brand interlude (sticky scroll-scrubbed video) ---- */
+#s7-logo-container {
+  height: 200vh;
+  position: relative;
+}
+
+#s7-logo-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #1f5138;
+}
+
+#s7-logo-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  #s7-logo-container { height: 160vh; }
+}
+
 /* ---- Section 8 ---- */
 .tds-usps { list-style: none; padding: 0; margin: 2rem 0; }
 
@@ -1024,6 +1050,14 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     </div>
   </section>
 
+  <!-- ── Section 7b: SAMINA Logo brand interlude (scroll-scrubbed) ── -->
+  <section id="s7-logo-container">
+    <div id="s7-logo-sticky">
+      <video id="s7-logo-video" muted playsinline webkit-playsinline preload="auto"
+             src="../assets/videos/logo-animation.mp4?v=20260511e"></video>
+    </div>
+  </section>
+
   <!-- ── Section 8: Warum SAMINA — scroll-scrubbed assembly with timed text overlays ── -->
   <!-- Stage timing matches each component clip in warum-samina.mp4 (53.27s, 1080p):
        0.00 –  5.96   Assembly intro (Warum SAMINA. headline)
@@ -1139,6 +1173,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   initVideoEmbeds();
   initStatCounters();
   initLineReveals();
+  initS7LogoScrub();
   initS8Scrub();
 
   // Robust ScrollTrigger refresh — required on iOS/Android where the URL bar
@@ -1337,6 +1372,61 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         }
       });
     });
+  }
+
+  function initS7LogoScrub() {
+    var container = document.getElementById('s7-logo-container');
+    var video     = document.getElementById('s7-logo-video');
+    if (!container || !video) return;
+
+    var targetT = 0, lerpT = 0, rafId = null;
+    var vidDur = 5.04;
+
+    function prime() {
+      if (video.duration && isFinite(video.duration)) vidDur = video.duration;
+      var p = video.play();
+      if (p && typeof p.then === 'function') {
+        p.then(function () { video.pause(); onScroll(); }).catch(function () { onScroll(); });
+      } else {
+        try { video.pause(); } catch (e) {}
+        onScroll();
+      }
+    }
+    if (video.readyState >= 1) prime();
+    else video.addEventListener('loadedmetadata', prime, { once: true });
+
+    function getProgress() {
+      var top = container.getBoundingClientRect().top;
+      var height = container.offsetHeight - window.innerHeight;
+      if (height <= 0) return 0;
+      var p = -top / height;
+      if (isNaN(p)) return 0;
+      return Math.max(0, Math.min(1, p));
+    }
+
+    function tickVideo() {
+      lerpT += (targetT - lerpT) * 0.1;
+      if (!isNaN(lerpT)) {
+        try { video.currentTime = lerpT; } catch (e) {}
+      }
+      rafId = Math.abs(targetT - lerpT) > 0.02 ? requestAnimationFrame(tickVideo) : null;
+    }
+
+    function onScroll() {
+      targetT = getProgress() * vidDur;
+      if (!rafId) rafId = requestAnimationFrame(tickVideo);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    var unlocked = false;
+    function unlockSeek() {
+      if (unlocked) return;
+      unlocked = true;
+      var p = video.play();
+      if (p && typeof p.then === 'function') p.then(function () { video.pause(); onScroll(); }).catch(function () {});
+    }
+    document.addEventListener('touchstart', unlockSeek, { once: true, passive: true });
   }
 
   function initS8Scrub() {
