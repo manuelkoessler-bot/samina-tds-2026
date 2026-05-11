@@ -327,11 +327,14 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
 .s6-intro-p { text-align: right; }
 
-/* ---- Section 6: editorial equation (radical reduction, no tiles) ---- */
+/* ---- Section 6: editorial equation, anchored unter dem Body in der rechten Spalte ---- */
+.s6-right { display: flex; flex-direction: column; align-items: flex-end; }
+
 #s6-equation {
-  text-align: left;
-  margin: 6rem 0 0;
+  text-align: right;
+  margin: 3.5rem 0 0;
   padding: 0;
+  width: 100%;
 }
 
 .s6-eq-footnote {
@@ -339,50 +342,42 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   font-weight: 500;
   opacity: 0.5;
   line-height: 1.7;
-  margin: 0 0 3rem;
+  margin: 0 0 2rem;
 }
 
 .s6-eq-footnote .tds-reveal-line {
   display: inline;
-  margin-right: 0.75em;
+  margin-left: 0.5em;
 }
 
 .s6-eq-main {
-  font-size: clamp(1.3rem, 2.4vw, 2rem);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
   font-weight: 600;
   line-height: 1.3;
-  margin: 0 0 2rem;
+  margin: 0;
   letter-spacing: -0.01em;
   color: #273035;
 }
 
 .s6-eq-bignum {
   display: block;
-  font-size: clamp(5rem, 18vw, 16rem);
+  font-size: clamp(4rem, 10vw, 9rem);
   font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
   color: #1f5138;
   margin: 0.3rem 0;
 }
 
 .s6-eq-tail { display: block; }
 
-.s6-eq-divider {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  opacity: 0.5;
-  font-weight: 600;
-  margin: 3.5rem 0 0;
-}
-
 @media (max-width: 768px) {
-  #s6-equation { margin-top: 3rem; }
-  .s6-eq-footnote .tds-reveal-line { display: block; margin-right: 0; }
-  .s6-eq-footnote { margin-bottom: 2rem; }
-  .s6-eq-main { font-size: clamp(1.1rem, 4.5vw, 1.6rem); }
-  .s6-eq-bignum { font-size: clamp(4rem, 24vw, 8rem); }
+  .s6-right { align-items: flex-start; }
+  #s6-equation { text-align: left; margin-top: 2.5rem; }
+  .s6-eq-footnote .tds-reveal-line { display: block; margin-left: 0; }
+  .s6-eq-footnote { margin-bottom: 1.5rem; }
+  .s6-eq-main { font-size: clamp(1.05rem, 4.5vw, 1.4rem); }
+  .s6-eq-bignum { font-size: clamp(3.5rem, 22vw, 7rem); }
 }
 
 #s6-table {
@@ -1002,23 +997,24 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   <section id="s6" class="tds-section">
     <div id="s6-header" class="tds-fade-up">
       <h2 class="tds-display"><span class="m-line">8 Stunden</span> <span class="m-line">Wirkung.</span> <span class="m-line">Jede Nacht.</span></h2>
-      <p class="s6-intro-p tds-reveal-text">
-        <span class="tds-reveal-line">120 Tage pro Jahr verbringst du im Bett.</span>
-        <span class="tds-reveal-line">Das ist die größte Investition,</span>
-        <span class="tds-reveal-line">die du in deine Gesundheit machen kannst.</span>
-      </p>
-    </div>
-    <div id="s6-equation" class="tds-fade-up">
-      <p class="s6-eq-footnote tds-reveal-text">
-        <span class="tds-reveal-line">Smoothie wirkt 30 Minuten.</span>
-        <span class="tds-reveal-line">Workout wirkt 24 Stunden.</span>
-      </p>
-      <p class="s6-eq-main">
-        Schlaf wirkt 8 h × 365 Nächte =
-        <span class="s6-eq-bignum"><span class="s4-counter" data-target="2920" data-decimals="0">2.920</span></span>
-        <span class="s6-eq-tail">Stunden jedes Jahr.</span>
-      </p>
-      <p class="s6-eq-divider">— Multiplikator über Jahrzehnte —</p>
+      <div class="s6-right">
+        <p class="s6-intro-p tds-reveal-text">
+          <span class="tds-reveal-line">120 Tage pro Jahr verbringst du im Bett.</span>
+          <span class="tds-reveal-line">Das ist die größte Investition,</span>
+          <span class="tds-reveal-line">die du in deine Gesundheit machen kannst.</span>
+        </p>
+        <div id="s6-equation">
+          <p class="s6-eq-footnote tds-reveal-text">
+            <span class="tds-reveal-line">Smoothie wirkt 30 Minuten.</span>
+            <span class="tds-reveal-line">Workout wirkt 24 Stunden.</span>
+          </p>
+          <p class="s6-eq-main">
+            Schlaf wirkt 8 h × 365 Nächte =
+            <span class="s6-eq-bignum"><span class="s4-counter" data-target="2920" data-decimals="0">2.920</span></span>
+            <span class="s6-eq-tail">Stunden jedes Jahr.</span>
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
