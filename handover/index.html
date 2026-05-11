@@ -271,18 +271,22 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   margin: 0 0 1rem;
 }
 
-.s5-items { display: flex; flex-direction: column; gap: 1.25rem; }
+.s5-prose {
+  font-weight: 600;
+  color: white;
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+  line-height: 1.3;
+  margin: 0;
+}
 
-.s5-item {
+.s5-punchline {
   font-weight: 700;
   color: white;
   font-size: clamp(1.5rem, 3vw, 2.5rem);
-  line-height: 1.2;
-  padding-right: 1.25rem;
-  position: relative;
+  line-height: 1.25;
+  margin: 3rem 0 0;
+  opacity: 0.92;
 }
-
-.s5-item::after { content: "–"; position: absolute; right: 0; opacity: 0.5; }
 
 /* ---- Section 4 stats ---- */
 .s4-stats {
@@ -994,11 +998,6 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   .tds-right-col { text-align: left; }
   .s6-intro-p { text-align: left !important; }
 
-  /* s5 Bullet wieder auf links */
-  .s5-item { padding-left: 1.25rem; padding-right: 0; }
-  .s5-item::after { content: none; }
-  .s5-item::before { content: "–"; position: absolute; left: 0; opacity: 0.5; }
-
   /* Quelle nicht mehr ans Bottom pushen — direkt unter Body-Text platzieren */
   .tds-right-col p.tds-source,
   .tds-source { margin-top: 1.5rem; padding-top: 0; }
@@ -1095,24 +1094,25 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     </div>
     <div class="tds-right-col tds-fade-up">
       <div class="s5-category">
-        <h3 class="s5-cat-title">Lifestyle-Faktoren</h3>
-        <div class="s5-items tds-reveal-text">
-          <div class="s5-item tds-reveal-line">Stress &amp; Cortisol</div>
-          <div class="s5-item tds-reveal-line">Bildschirmzeit am Abend</div>
-          <div class="s5-item tds-reveal-line">Späte Mahlzeiten, Alkohol</div>
-          <div class="s5-item tds-reveal-line">Unregelmäßiger Rhythmus</div>
-          <div class="s5-item tds-reveal-line">Wolfsstunde 3–4 Uhr</div>
-        </div>
+        <h3 class="s5-cat-title">Tagsüber</h3>
+        <p class="s5-prose tds-reveal-text">
+          <span class="tds-reveal-line">Stress, Bildschirme bis spät, späte Mahlzeiten,</span>
+          <span class="tds-reveal-line">Alkohol, unregelmäßiger Rhythmus —</span>
+          <span class="tds-reveal-line">der Rhythmus zerbricht.</span>
+        </p>
       </div>
       <div class="s5-category">
-        <h3 class="s5-cat-title">Körperliche Faktoren</h3>
-        <div class="s5-items tds-reveal-text">
-          <div class="s5-item tds-reveal-line">Rückenschmerzen, falsche Liegeposition</div>
-          <div class="s5-item tds-reveal-line">Atemnot, Schnarchen, Schlafapnoe</div>
-          <div class="s5-item tds-reveal-line">Bettklima, Temperatur</div>
-          <div class="s5-item tds-reveal-line">Mangelnde Erdung</div>
-        </div>
+        <h3 class="s5-cat-title">In der Nacht</h3>
+        <p class="s5-prose tds-reveal-text">
+          <span class="tds-reveal-line">Falsche Liegeposition, Schnarchen,</span>
+          <span class="tds-reveal-line">falsches Bettklima, fehlende Erdung —</span>
+          <span class="tds-reveal-line">die Regeneration bleibt aus.</span>
+        </p>
       </div>
+      <p class="s5-punchline tds-reveal-text">
+        <span class="tds-reveal-line">Du merkst es nicht.</span>
+        <span class="tds-reveal-line">Aber jede Nacht raubt dir etwas.</span>
+      </p>
     </div>
   </section>
 
