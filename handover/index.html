@@ -1250,6 +1250,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   <!-- ── Section 9: CTA ── -->
   <section id="s9" class="tds-fade-up">
     <h2>Werde zum SAMINA Tief-Schläfer.</h2>
+    <p>Erlebe das SAMINA Schlafsystem persönlich — in unseren Filialen oder bei zertifizierten Partnern in deiner Nähe. Entdecke, wie richtiger Schlaf dein Leben verändern kann.</p>
     <div class="tds-btn-group">
       <a href="https://samina.com/system/" class="tds-btn-primary" target="_blank" rel="noopener">Zum Schlafsystem</a>
       <a href="https://samina.com/fachgeschaefte/" class="tds-btn-secondary" target="_blank" rel="noopener">Filiale kontaktieren</a>
@@ -1519,9 +1520,11 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     //   0 → VIDEO_PHASE_END : scrubs video 0 → vidDur (logo dissolves into white;
     //                        the last frame still shows green slivers on the sides)
     //   TEXT_FADE_START → 1 : fades in the gray "Longevity beginnt im Schlaf" overlay
-    var VIDEO_PHASE_END = 0.75;
-    var TEXT_FADE_START = 0.30;
-    var TEXT_FADE_END   = 0.60;
+    var VIDEO_PHASE_END = 0.85;
+    // Text wird sofort beim Eintritt in die Sektion voll sichtbar gerendert
+    // (kein Fade-in innerhalb der Sektion — TEXT_FADE_START liegt vor p=0).
+    var TEXT_FADE_START = -1.0;
+    var TEXT_FADE_END   = 0.0;
 
     function prime() {
       if (video.duration && isFinite(video.duration)) vidDur = video.duration;
