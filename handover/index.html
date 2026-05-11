@@ -1516,15 +1516,13 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
     var targetT = 0, lerpT = 0, rafId = null;
     var vidDur = 2.5;
-    // Scroll progress is split into two phases:
-    //   0 → VIDEO_PHASE_END : scrubs video 0 → vidDur (logo dissolves into white;
-    //                        the last frame still shows green slivers on the sides)
-    //   TEXT_FADE_START → 1 : fades in the gray "Longevity beginnt im Schlaf" overlay
-    var VIDEO_PHASE_END = 0.85;
-    // Text wird sofort beim Eintritt in die Sektion voll sichtbar gerendert
-    // (kein Fade-in innerhalb der Sektion — TEXT_FADE_START liegt vor p=0).
-    var TEXT_FADE_START = -1.0;
-    var TEXT_FADE_END   = 0.0;
+    // Scroll-Progress in drei Phasen:
+    //   0 → VIDEO_PHASE_END : Video scrubt 0 → vidDur (Logo dissolved)
+    //   VIDEO_PHASE_END → TEXT_FADE_START : Pause / Weissraum (Logo verklungen, noch kein Text)
+    //   TEXT_FADE_START → TEXT_FADE_END : "Longevity beginnt im Schlaf" fadet ein
+    var VIDEO_PHASE_END = 0.50;
+    var TEXT_FADE_START = 0.70;
+    var TEXT_FADE_END   = 0.85;
 
     function prime() {
       if (video.duration && isFinite(video.duration)) vidDur = video.duration;
