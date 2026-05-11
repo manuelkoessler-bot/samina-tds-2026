@@ -1064,6 +1064,24 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   initLineReveals();
   initS8Scrub();
 
+  // Robust ScrollTrigger refresh — required on iOS/Android where the URL bar
+  // collapse changes 100vh after init, and where video metadata loads late.
+  function refreshST() { try { ScrollTrigger.refresh(); } catch (e) {} }
+  window.addEventListener('load', refreshST);
+  document.addEventListener('readystatechange', function () {
+    if (document.readyState === 'complete') refreshST();
+  });
+  if (window.visualViewport) {
+    var vvTimer;
+    window.visualViewport.addEventListener('resize', function () {
+      clearTimeout(vvTimer);
+      vvTimer = setTimeout(refreshST, 150);
+    });
+  }
+  window.addEventListener('orientationchange', function () {
+    setTimeout(refreshST, 200);
+  });
+
   function initVideoEmbeds() {
     document.querySelectorAll('.tds-video-embed').forEach(function (embed) {
       var ytId = embed.dataset.yt;
@@ -1101,17 +1119,24 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         try { video.pause(); } catch (e) {}
         onScroll();
       }
+      // After metadata is in, layout may have shifted (video sizing) — refresh
+      try { ScrollTrigger.refresh(); } catch (e) {}
     });
 
     function getProgress() {
       var top    = container.getBoundingClientRect().top;
       var height = container.offsetHeight - window.innerHeight;
-      return Math.max(0, Math.min(1, -top / height));
+      if (height <= 0) return 0;
+      var p = -top / height;
+      if (isNaN(p)) return 0;
+      return Math.max(0, Math.min(1, p));
     }
 
     function tickVideo() {
       lerpT += (targetT - lerpT) * 0.1;
-      try { video.currentTime = lerpT; } catch (e) {}
+      if (!isNaN(lerpT)) {
+        try { video.currentTime = lerpT; } catch (e) {}
+      }
       rafId = Math.abs(targetT - lerpT) > 0.02 ? requestAnimationFrame(tickVideo) : null;
     }
 
@@ -1139,21 +1164,23 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         trigger: container,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 2
+        scrub: 0.7,
+        invalidateOnRefresh: true
       }
     });
 
     var longevityEl  = document.getElementById('s1-longevity');
     var sourceEl     = document.querySelector('.s1-source-top');
     var bottomTextEl = document.querySelector('.s1-bottom-text');
-    tl.to(longevityEl, { opacity: 0, ease: 'sine.inOut', duration: 0.07 }, 0.0);
-    tl.to(sourceEl,    { opacity: 0.7, ease: 'sine.inOut', duration: 0.09 }, 0.50);
+    // LONGEVITY muss vollständig weg sein, bevor word-90 startet, sonst überlappen sich beide
+    tl.to(longevityEl, { opacity: 0, ease: 'sine.inOut', duration: 0.10 }, 0.0);
+    tl.to(sourceEl,    { opacity: 0.7, ease: 'sine.inOut', duration: 0.09 }, 0.55);
 
     var words = [
-      { id: 'word-90',      s: 0.05, e: 0.18 },
-      { id: 'word-beginnt', s: 0.20, e: 0.33 },
-      { id: 'word-im',      s: 0.36, e: 0.47 },
-      { id: 'word-schlaf',  s: 0.50, e: 0.63 }
+      { id: 'word-90',      s: 0.12, e: 0.22 },
+      { id: 'word-beginnt', s: 0.24, e: 0.35 },
+      { id: 'word-im',      s: 0.38, e: 0.48 },
+      { id: 'word-schlaf',  s: 0.51, e: 0.63 }
     ];
     words.forEach(function (w) {
       tl.fromTo(document.getElementById(w.id),
@@ -1165,9 +1192,9 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
     // Schlusssequenz: Wörter + Quelle ausblenden, LONGEVITY. einblenden
     var allWords = words.map(function(w) { return document.getElementById(w.id); });
-    tl.to(allWords,  { opacity: 0, ease: 'sine.inOut', duration: 0.08 }, 0.67);
-    tl.to(sourceEl,  { opacity: 0, ease: 'sine.inOut', duration: 0.08 }, 0.67);
-    tl.to(bottomTextEl, { opacity: 1, ease: 'sine.inOut', duration: 0.10 }, 0.80);
+    tl.to(allWords,  { opacity: 0, ease: 'sine.inOut', duration: 0.08 }, 0.68);
+    tl.to(sourceEl,  { opacity: 0, ease: 'sine.inOut', duration: 0.08 }, 0.68);
+    tl.to(bottomTextEl, { opacity: 1, ease: 'sine.inOut', duration: 0.10 }, 0.82);
 
     tl.fromTo(smokeEl, { scale: 1.0 }, { scale: 1.08, ease: 'none', duration: 1.0 }, 0);
   }
@@ -1226,6 +1253,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         try { video.pause(); } catch (e) {}
         onScroll();
       }
+      try { ScrollTrigger.refresh(); } catch (e) {}
     }
 
     if (video.readyState >= 1) prime();
@@ -1234,7 +1262,10 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     function getProgress() {
       var top = container.getBoundingClientRect().top;
       var height = container.offsetHeight - window.innerHeight;
-      return Math.max(0, Math.min(1, -top / height));
+      if (height <= 0) return 0;
+      var p = -top / height;
+      if (isNaN(p)) return 0;
+      return Math.max(0, Math.min(1, p));
     }
 
     function updateText(t) {
