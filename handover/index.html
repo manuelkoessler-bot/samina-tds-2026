@@ -548,9 +548,26 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   #s8-container { height: 350vh; }
   #s8-overlay { padding: 8vw 6vw; }
 
-  /* Mobile: Bild auf die linke Hälfte fokussieren (richtige Liegeposition).
-     Crop blendet den rechten Vergleichs-Kopf aus. */
-  #s8-video { object-position: 28% center; transform: scale(1.18); transform-origin: 28% center; }
+  /* Mobile-Default: Video zentriert, leicht hineingezoomt für volle Bühne.
+     Pro Segment kann die Kamera per JS verschoben werden (siehe .s8-focus-*). */
+  #s8-video {
+    object-position: center center;
+    transform: scale(1.08);
+    transform-origin: center center;
+    transition: object-position 0.6s ease, transform 0.6s ease, transform-origin 0.6s ease;
+  }
+
+  /* Kissen-Segment: linke Hälfte fokussieren, rechten Vergleichs-Kopf ausblenden */
+  #s8-video.s8-focus-kissen {
+    object-position: 30% center;
+    transform: scale(1.22);
+    transform-origin: 30% center;
+  }
+
+  /* Intro: leicht herausgezoomt, damit das gesamte Bett sichtbar bleibt */
+  #s8-video.s8-focus-intro {
+    transform: scale(1.0);
+  }
 
   /* Text overlays sitzen oben links, wie auf Desktop */
   .s8-text {
@@ -1268,6 +1285,9 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
       return Math.max(0, Math.min(1, p));
     }
 
+    // Index-basiert: 0=Intro, 1=Lamellenrost, 2=Lokosona, 3=Matratze, 4=Kissen, 5=Bettdecke
+    var focusClasses = ['s8-focus-intro', '', '', '', 's8-focus-kissen', ''];
+
     function updateText(t) {
       var idx = -1;
       for (var i = 0; i < ranges.length; i++) {
@@ -1277,6 +1297,11 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
       if (idx === currentText) return;
       currentText = idx;
       ranges.forEach(function (r, i) { r.el.classList.toggle('is-active', i === idx); });
+
+      // Per-Segment Video-Crop für Mobile
+      focusClasses.forEach(function (cls) { if (cls) video.classList.remove(cls); });
+      var focusCls = focusClasses[idx];
+      if (focusCls) video.classList.add(focusCls);
     }
 
     function tickVideo() {
