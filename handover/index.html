@@ -327,6 +327,64 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
 .s6-intro-p { text-align: right; }
 
+/* ---- Section 6: editorial equation (radical reduction, no tiles) ---- */
+#s6-equation {
+  text-align: center;
+  max-width: 1100px;
+  margin: 6rem auto 0;
+  padding: 2rem 0;
+}
+
+.s6-eq-footnote {
+  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+  font-weight: 500;
+  opacity: 0.5;
+  line-height: 1.7;
+  margin: 0 0 3rem;
+}
+
+.s6-eq-footnote .tds-reveal-line {
+  display: inline;
+  margin-right: 0.5em;
+}
+
+.s6-eq-main {
+  font-size: clamp(1.3rem, 2.4vw, 2rem);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 2rem;
+  letter-spacing: -0.01em;
+  color: #273035;
+}
+
+.s6-eq-bignum {
+  display: block;
+  font-size: clamp(4.5rem, 14vw, 12rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  color: #1f5138;
+  margin: 0.4rem 0;
+}
+
+.s6-eq-tail { display: block; }
+
+.s6-eq-divider {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+  font-weight: 600;
+  margin: 3.5rem 0 0;
+}
+
+@media (max-width: 768px) {
+  #s6-equation { margin-top: 3rem; }
+  .s6-eq-footnote .tds-reveal-line { display: block; margin-right: 0; }
+  .s6-eq-footnote { margin-bottom: 2rem; }
+  .s6-eq-main { font-size: clamp(1.1rem, 4.5vw, 1.6rem); }
+}
+
 #s6-table {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -950,19 +1008,17 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         <span class="tds-reveal-line">die du in deine Gesundheit machen kannst.</span>
       </p>
     </div>
-    <div id="s6-table" class="tds-fade-up">
-      <div class="s6-col">
-        <h3>Tagsüber</h3>
-        <p>1 Smoothie wirkt 30 Min<br>1 Workout wirkt 24 h<br>Supplement wirkt punktuell</p>
-      </div>
-      <div class="s6-col s6-col-accent">
-        <h3>Schlaf</h3>
-        <p>Schlaf wirkt 8 h<br>Tiefschlaf wirkt aufs Hormonsystem<br>Regeneration läuft systemisch</p>
-      </div>
-      <div class="s6-col">
-        <h3>Schlafplatz</h3>
-        <p>Schlafplatz wirkt 8 h × 365 Nächte<br>Wirbelsäule, Atmung, Klima, Erdung<br>Multiplikator über Jahrzehnte</p>
-      </div>
+    <div id="s6-equation" class="tds-fade-up">
+      <p class="s6-eq-footnote tds-reveal-text">
+        <span class="tds-reveal-line">Smoothie wirkt 30 Minuten.</span>
+        <span class="tds-reveal-line">Workout wirkt 24 Stunden.</span>
+      </p>
+      <p class="s6-eq-main">
+        Schlaf wirkt 8 h × 365 Nächte =
+        <span class="s6-eq-bignum"><span class="s4-counter" data-target="2920" data-decimals="0">2.920</span></span>
+        <span class="s6-eq-tail">Stunden jedes Jahr.</span>
+      </p>
+      <p class="s6-eq-divider">— Multiplikator über Jahrzehnte —</p>
     </div>
   </section>
 
@@ -1253,8 +1309,16 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   }
 
   function initStatCounters() {
+    // Deutsches Format: Punkt als Tausender-Trenner, Komma als Dezimalpunkt
     function fmt(val, decimals) {
-      return val.toFixed(decimals).replace('.', ',');
+      try {
+        return val.toLocaleString('de-DE', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        });
+      } catch (e) {
+        return val.toFixed(decimals).replace('.', ',');
+      }
     }
     document.querySelectorAll('.s4-counter').forEach(function (el) {
       var target = parseFloat(el.dataset.target);
