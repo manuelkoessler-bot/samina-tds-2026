@@ -409,29 +409,9 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
 .s6-col-accent p { opacity: 1; }
 
-/* ---- Section 7 ---- */
-#s7 {
-  position: relative;
-  background: #336b4a;
-  overflow: hidden;
-  min-height: 60vh;
-}
-
-#s7 > .tds-left-col { position: relative; z-index: 1; }
-
-#s7-smoke {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.6;
-  z-index: 0;
-}
-
 /* ---- Section 7b: Logo brand interlude (sticky scroll-scrubbed video) ---- */
 #s7-logo-container {
-  height: 200vh;
+  height: 280vh;
   position: relative;
 }
 
@@ -451,8 +431,31 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   object-fit: cover;
 }
 
+#s7-logo-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6vw;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.s7-logo-headline {
+  margin: 0;
+  text-align: center;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 7vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #6b6f72;
+}
+
 @media (max-width: 768px) {
-  #s7-logo-container { height: 160vh; }
+  #s7-logo-container { height: 240vh; }
+  .s7-logo-headline { font-size: clamp(2rem, 10vw, 3.5rem); }
 }
 
 /* ---- Section 8 ---- */
@@ -705,6 +708,101 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   opacity: 0.5;
 }
 
+/* ---- Section 8b: Wall of Trust (auto-scroll marquee) ---- */
+#s8b-trust {
+  padding: 8vw 0;
+  background: #f9f8f6;
+  overflow: hidden;
+}
+
+.s8b-header {
+  padding: 0 6vw;
+  margin-bottom: 5rem;
+  max-width: 1300px;
+}
+
+.s8b-intro {
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 2rem 0 0;
+  opacity: 0.7;
+  max-width: 720px;
+}
+
+.s8b-marquee {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+
+.s8b-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: s8b-scroll 80s linear infinite;
+  will-change: transform;
+}
+
+.s8b-marquee:hover .s8b-track { animation-play-state: paused; }
+
+.s8b-card {
+  flex: 0 0 240px;
+  margin: 0;
+}
+
+.s8b-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+  background: #e9e5e1;
+}
+
+.s8b-card figcaption {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.s8b-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.25;
+  color: #273035;
+  letter-spacing: -0.005em;
+}
+
+.s8b-role {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  color: #273035;
+  line-height: 1.3;
+}
+
+@keyframes s8b-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  #s8b-trust { padding: 12vw 0; }
+  .s8b-header { margin-bottom: 3rem; }
+  .s8b-intro { font-size: clamp(0.95rem, 4vw, 1.15rem); margin-top: 1.25rem; }
+  .s8b-card { flex: 0 0 180px; }
+  .s8b-track { gap: 1rem; animation-duration: 60s; }
+  .s8b-name { font-size: 0.85rem; }
+  .s8b-role { font-size: 0.72rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s8b-track { animation-play-state: paused; }
+}
+
 /* ---- Section 9 CTA ---- */
 #s9 { text-align: center; padding: 10vw 6vw; background: #e9e5e1; }
 
@@ -876,7 +974,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
   .tds-btn-group { flex-direction: column; align-items: center; }
 
-  #s7, #s8-right { min-height: 55vw; }
+  #s8-right { min-height: 55vw; }
 
   /* Mobile: right-aligned content auf links zurücksetzen — wirkt im single-column Layout natürlicher */
   .tds-right-col { text-align: left; }
@@ -1040,21 +1138,16 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     </div>
   </section>
 
-  <!-- ── Section 7 ── -->
-  <section class="tds-section tds-two-col" id="s7">
-    <img id="s7-smoke" src="../assets/smoke.webp" alt="">
-    <div class="tds-left-col tds-fade-up">
-      <h2 class="tds-display" style="color:white;">
-        <span class="m-line">Longevity</span> <span class="m-line">beginnt</span> <span class="m-line">im Schlaf.</span>
-      </h2>
-    </div>
-  </section>
-
   <!-- ── Section 7b: SAMINA Logo brand interlude (scroll-scrubbed) ── -->
   <section id="s7-logo-container">
     <div id="s7-logo-sticky">
       <video id="s7-logo-video" muted playsinline webkit-playsinline preload="auto"
              src="../assets/videos/logo-animation.mp4?v=20260511e"></video>
+      <div id="s7-logo-text" aria-hidden="true">
+        <h2 class="s7-logo-headline">
+          <span class="m-line">Longevity</span> <span class="m-line">beginnt</span> <span class="m-line">im Schlaf.</span>
+        </h2>
+      </div>
     </div>
   </section>
 
@@ -1111,6 +1204,44 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
       <span class="tds-reveal-line">Reine Naturmaterialien.</span>
       <span class="tds-reveal-line">Crafted in the Austrian Alps.</span>
     </p>
+  </section>
+
+  <!-- ── Section 8b: Wall of Trust — auto-scrolling marquee ── -->
+  <section id="s8b-trust">
+    <div class="s8b-header tds-fade-up">
+      <h2 class="tds-display"><span class="m-line">Erfolg beginnt</span> <span class="m-line">mit Schlaf.</span></h2>
+      <p class="s8b-intro">Spitzenathleten, Ärzte, führende Köpfe und Premium-Hotels setzen weltweit auf SAMINA.</p>
+    </div>
+    <div class="s8b-marquee" aria-label="Persönlichkeiten und Hotels, die auf SAMINA setzen">
+      <div class="s8b-track">
+        <!-- Set 1 -->
+        <figure class="s8b-card"><img src="../assets/trust/katharina-liensberger.jpg" alt="Katharina Liensberger" loading="lazy"><figcaption><span class="s8b-name">Katharina Liensberger</span><span class="s8b-role">Skirennläuferin</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/luisenhohe.jpg" alt="Luisenhöhe Gesundheitsresort" loading="lazy"><figcaption><span class="s8b-name">Luisenhöhe</span><span class="s8b-role">Gesundheitsresort, Schwarzwald</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/alexander-hermann.jpg" alt="Alexander Hermann" loading="lazy"><figcaption><span class="s8b-name">Alexander Hermann</span><span class="s8b-role">Sternekoch &amp; Hotelier</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/ben-greenfield.jpg" alt="Ben Greenfield" loading="lazy"><figcaption><span class="s8b-name">Ben Greenfield</span><span class="s8b-role">Biohacker &amp; Autor</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/krallerhof.jpg" alt="Krallerhof" loading="lazy"><figcaption><span class="s8b-name">Krallerhof</span><span class="s8b-role">Leogang, Salzburg</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/motsi-mabuse.jpg" alt="Motsi Mabuse" loading="lazy"><figcaption><span class="s8b-name">Motsi Mabuse</span><span class="s8b-role">Tänzerin &amp; Unternehmerin</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/dr-martin-schlott.jpg" alt="Dr. Martin Schlott" loading="lazy"><figcaption><span class="s8b-name">Dr. Martin Schlott</span><span class="s8b-role">Chefarzt &amp; Schlafcoach</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/peterhof.jpg" alt="Peterhof" loading="lazy"><figcaption><span class="s8b-name">Peterhof</span><span class="s8b-role">Furx, Vorarlberg</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/vishen-lakhiani.jpg" alt="Vishen Lakhiani" loading="lazy"><figcaption><span class="s8b-name">Vishen Lakhiani</span><span class="s8b-role">Gründer Mindvalley</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/simon-amann.jpg" alt="Simon Amann" loading="lazy"><figcaption><span class="s8b-name">Simon Amann</span><span class="s8b-role">Skispringer</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/fc-st-gallen.jpg" alt="FC St. Gallen" loading="lazy"><figcaption><span class="s8b-name">FC St. Gallen</span><span class="s8b-role">Schweizer Bundesligist</span></figcaption></figure>
+        <figure class="s8b-card"><img src="../assets/trust/dr-dietrich-klinghardt.jpg" alt="Dr. Dietrich Klinghardt" loading="lazy"><figcaption><span class="s8b-name">Dr. Dietrich Klinghardt</span><span class="s8b-role">Arzt &amp; Wissenschaftler</span></figcaption></figure>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/katharina-liensberger.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Katharina Liensberger</span><span class="s8b-role">Skirennläuferin</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/luisenhohe.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Luisenhöhe</span><span class="s8b-role">Gesundheitsresort, Schwarzwald</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/alexander-hermann.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Alexander Hermann</span><span class="s8b-role">Sternekoch &amp; Hotelier</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/ben-greenfield.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Ben Greenfield</span><span class="s8b-role">Biohacker &amp; Autor</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/krallerhof.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Krallerhof</span><span class="s8b-role">Leogang, Salzburg</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/motsi-mabuse.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Motsi Mabuse</span><span class="s8b-role">Tänzerin &amp; Unternehmerin</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/dr-martin-schlott.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Dr. Martin Schlott</span><span class="s8b-role">Chefarzt &amp; Schlafcoach</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/peterhof.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Peterhof</span><span class="s8b-role">Furx, Vorarlberg</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/vishen-lakhiani.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Vishen Lakhiani</span><span class="s8b-role">Gründer Mindvalley</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/simon-amann.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Simon Amann</span><span class="s8b-role">Skispringer</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/fc-st-gallen.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">FC St. Gallen</span><span class="s8b-role">Schweizer Bundesligist</span></figcaption></figure>
+        <figure class="s8b-card" aria-hidden="true"><img src="../assets/trust/dr-dietrich-klinghardt.jpg" alt="" loading="lazy"><figcaption><span class="s8b-name">Dr. Dietrich Klinghardt</span><span class="s8b-role">Arzt &amp; Wissenschaftler</span></figcaption></figure>
+      </div>
+    </div>
   </section>
 
   <!-- ── Section 9: CTA ── -->
@@ -1377,10 +1508,18 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   function initS7LogoScrub() {
     var container = document.getElementById('s7-logo-container');
     var video     = document.getElementById('s7-logo-video');
+    var textEl    = document.getElementById('s7-logo-text');
     if (!container || !video) return;
 
     var targetT = 0, lerpT = 0, rafId = null;
     var vidDur = 5.04;
+    // Scroll progress is split into two phases:
+    //   0 → VIDEO_PHASE_END : scrubs video 0 → vidDur
+    //   TEXT_FADE_START → 1 : fades in the gray "Longevity beginnt im Schlaf" overlay
+    //                        (video stays frozen on its final white frame)
+    var VIDEO_PHASE_END = 0.55;
+    var TEXT_FADE_START = 0.62;
+    var TEXT_FADE_END   = 0.95;
 
     function prime() {
       if (video.duration && isFinite(video.duration)) vidDur = video.duration;
@@ -1413,7 +1552,14 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     }
 
     function onScroll() {
-      targetT = getProgress() * vidDur;
+      var p = getProgress();
+      var videoP = Math.min(1, p / VIDEO_PHASE_END);
+      targetT = videoP * vidDur;
+      if (textEl) {
+        var span = TEXT_FADE_END - TEXT_FADE_START;
+        var tp = span > 0 ? (p - TEXT_FADE_START) / span : 0;
+        textEl.style.opacity = Math.max(0, Math.min(1, tp));
+      }
       if (!rafId) rafId = requestAnimationFrame(tickVideo);
     }
 
