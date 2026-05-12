@@ -109,9 +109,6 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   opacity: 0.15;
   will-change: opacity;
 }
-/* In s4: Counter-Stats sind bereits font-weight 700 — nicht überschreiben */
-.s4-stat.tds-reveal-line { font-weight: 700; }
-
 /* ---- Section 1: Hero ---- */
 #s1-container { height: 400vh; position: relative; }
 
@@ -258,47 +255,8 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 .s1-bb-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.4rem; }
 .s1-bb-sub { font-size: 0.95rem; }
 
-/* ---- Section 5 dark ---- */
-.s5-category { margin-bottom: 2.5rem; }
-
-.s5-cat-title {
-  font-weight: 600;
-  color: white;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.5;
-  margin: 0 0 1rem;
-}
-
-.s5-prose {
-  font-weight: 600;
-  color: white;
-  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
-  line-height: 1.3;
-  margin: 0;
-}
-
-.s5-punchline {
-  font-weight: 700;
-  color: white;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  line-height: 1.25;
-  margin: 3rem 0 0;
-  opacity: 0.92;
-}
-
-/* ---- Section 4 stats ---- */
-.s4-stats {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 2rem;
-}
-
-.s4-stat { display: block; }
-
-.s4-counter {
+/* ---- Animated counters (used in s6 equation) ---- */
+.tds-counter {
   display: inline-block;
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
@@ -306,120 +264,13 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   color: #1f5138;
 }
 
-.s4-criteria {
-  font-size: clamp(0.85rem, 1.4vw, 1rem);
-  opacity: 0.7;
-  line-height: 1.8;
-}
-
-/* ---- Section 6 table ---- */
-#s6-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6vw;
-  align-items: start;
-  margin-bottom: 4rem;
-}
-
-#s6-header p {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.2;
-  padding-top: 1rem;
-  margin: 0;
-}
-
-.s6-intro-p { text-align: right; }
-
-/* ---- Section 6: editorial equation, anchored unter dem Body in der rechten Spalte ---- */
-.s6-right { display: flex; flex-direction: column; align-items: flex-end; }
-
-#s6-equation {
-  text-align: right;
-  margin: 3.5rem 0 0;
-  padding: 0;
-  width: 100%;
-}
-
-.s6-eq-footnote {
-  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
-  font-weight: 500;
-  opacity: 0.5;
-  line-height: 1.7;
-  margin: 0 0 2rem;
-}
-
-.s6-eq-footnote .tds-reveal-line {
-  display: inline;
-  margin-left: 0.5em;
-}
-
-.s6-eq-main {
-  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
-  font-weight: 600;
-  line-height: 1.3;
-  margin: 0;
-  letter-spacing: -0.01em;
-  color: #273035;
-}
-
-.s6-eq-bignum {
-  display: block;
-  font-size: clamp(4rem, 10vw, 9rem);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
-  color: #1f5138;
-  margin: 0.3rem 0;
-}
-
-.s6-eq-tail { display: block; }
-
-@media (max-width: 768px) {
-  .s6-right { align-items: flex-start; }
-  #s6-equation { text-align: left; margin-top: 2.5rem; }
-  .s6-eq-footnote .tds-reveal-line { display: block; margin-left: 0; }
-  .s6-eq-footnote { margin-bottom: 1.5rem; }
-  .s6-eq-main { font-size: clamp(1.05rem, 4.5vw, 1.4rem); }
-  .s6-eq-bignum { font-size: clamp(3.5rem, 22vw, 7rem); }
-}
-
-#s6-table {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
-.s6-col { background: #e9e6e1; padding: 2.5rem 2rem; }
-.s6-col-accent { background: #336b4a; color: white; }
-
-.s6-col h3 {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.55;
-  margin: 0 0 1.5rem;
-  font-weight: 600;
-}
-
-.s6-col-accent h3 { opacity: 0.7; color: white; }
-
-.s6-col p {
-  font-size: 0.9rem;
-  line-height: 1.7;
-  margin: 0;
-  opacity: 0.85;
-}
-
-.s6-col-accent p { opacity: 1; }
-
-/* ---- Section 7b: Logo brand interlude (sticky scroll-scrubbed video) ---- */
-#s7-logo-container {
+/* ---- Section 6: Logo brand interlude (sticky scroll-scrubbed video) ---- */
+#s6-logo-container {
   height: 160vh;
   position: relative;
 }
 
-#s7-logo-sticky {
+#s6-logo-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
@@ -427,7 +278,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   background: #1f5138;
 }
 
-#s7-logo-video {
+#s6-logo-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -435,7 +286,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   object-fit: cover;
 }
 
-#s7-logo-text {
+#s6-logo-text {
   position: absolute;
   inset: 0;
   display: flex;
@@ -448,7 +299,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   z-index: 2;
 }
 
-.s7-logo-headline {
+.s6-logo-headline {
   margin: 0;
   text-align: center;
   font-weight: 800;
@@ -458,7 +309,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   color: #6b6f72;
 }
 
-.s7-logo-subline {
+.s6-logo-subline {
   margin: clamp(1.2rem, 2.4vw, 2.4rem) 0 0;
   text-align: center;
   font-weight: 500;
@@ -469,102 +320,71 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 }
 
 @media (max-width: 768px) {
-  #s7-logo-container { height: 145vh; }
+  #s6-logo-container { height: 145vh; }
   /* Logo-Video ist landscape gerendert; auf Hochkant ohne Crop einpassen,
      damit das volle SAMINA-Logo sichtbar bleibt. Grüne Ränder = sticky bg. */
-  #s7-logo-video { object-fit: contain; background: #1f5138; }
-  .s7-logo-headline { font-size: clamp(2rem, 10vw, 3.5rem); }
+  #s6-logo-video { object-fit: contain; background: #1f5138; }
+  .s6-logo-headline { font-size: clamp(2rem, 10vw, 3.5rem); }
 }
 
-/* ---- Section 8 ---- */
-.tds-usps { list-style: none; padding: 0; margin: 2rem 0; }
-
-.tds-usps li {
-  padding: 1.2rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  font-size: clamp(0.9rem, 1.4vw, 1rem);
-  line-height: 1.6;
+/* ---- Section 7: Investment-Frame Equation ---- */
+#s7-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: start;
+  margin-bottom: 4rem;
 }
 
-.tds-usps li:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
-
-.tds-usps-footer {
+#s7-header p {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 700;
-  font-size: 0.85rem;
-  margin-top: 1.5rem;
-  letter-spacing: 0.02em;
+  line-height: 1.2;
+  padding-top: 1rem;
+  margin: 0;
 }
 
-#s8-right {
-  position: relative;
-  min-height: 50vh;
-  overflow: hidden;
-  background: #f0eee9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.s7-intro-p { text-align: right; }
 
-/* ---- Reusable Video-Embed (YouTube lazy-load) ---- */
-.tds-video-embed {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  background: #f0eee9;
-  border-radius: 1rem;
-  overflow: hidden;
-}
+/* Equation column anchored under the body text in the right column */
+.s7-right { display: flex; flex-direction: column; align-items: flex-end; }
 
-.tds-video-poster {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.tds-video-embed iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  z-index: 2;
-}
-
-.tds-video-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: #1f8f3b;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-  transition: transform 0.2s ease, background-color 0.2s ease;
+#s7-equation {
+  text-align: right;
+  margin: 3.5rem 0 0;
   padding: 0;
-  z-index: 1;
+  width: 100%;
 }
 
-.tds-video-play svg { margin-left: 4px; }
-
-.tds-video-play:hover {
-  background: #1f5138;
-  transform: translate(-50%, -50%) scale(1.06);
+.s7-eq-main {
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+  letter-spacing: -0.01em;
+  color: #273035;
 }
 
-.tds-video-embed.is-playing .tds-video-poster,
-.tds-video-embed.is-playing .tds-video-play { display: none; }
+.s7-eq-bignum {
+  display: block;
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  color: #1f5138;
+  margin: 0.3rem 0;
+}
 
-/* ---- Section 8: Warum SAMINA — scrub cinema (assembly video, 6 timed text stages) ---- */
+.s7-eq-tail { display: block; }
+
+@media (max-width: 768px) {
+  .s7-right { align-items: flex-start; }
+  #s7-equation { text-align: left; margin-top: 2.5rem; }
+  .s7-eq-main { font-size: clamp(1.05rem, 4.5vw, 1.4rem); }
+  .s7-eq-bignum { font-size: clamp(3.5rem, 22vw, 7rem); }
+}
+
+/* ---- Section 8: Das SAMINA Schlafsystem — scrub cinema (assembly video, 6 timed text stages) ---- */
 #s8-container {
   position: relative;
   height: 450vh;
@@ -638,7 +458,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   color: #273035;
 }
 
-#s8-headline-warum {
+#s8-headline-intro {
   font-weight: 800;
   font-size: clamp(2.4rem, 6.4vw, 7rem);
   line-height: 0.95;
@@ -683,7 +503,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
   .s8-eyebrow { font-size: 0.72rem; margin-bottom: 0.75rem; }
   .s8-headline { font-size: clamp(1.35rem, 5.6vw, 2rem); line-height: 1.1; }
-  #s8-headline-warum { font-size: clamp(2.1rem, 8.5vw, 4rem); }
+  #s8-headline-intro { font-size: clamp(2.1rem, 8.5vw, 4rem); }
 }
 
 /* ---- Section 8c: Closing slate (smoke bg, scroll-revealed white text) ---- */
@@ -986,17 +806,13 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
 
   .tds-two-col { grid-template-columns: 1fr; }
 
-  #s6-header { grid-template-columns: 1fr; }
-
-  #s6-table { grid-template-columns: 1fr; }
+  #s7-header { grid-template-columns: 1fr; }
 
   .tds-btn-group { flex-direction: column; align-items: center; }
 
-  #s8-right { min-height: 55vw; }
-
   /* Mobile: right-aligned content auf links zurücksetzen — wirkt im single-column Layout natürlicher */
   .tds-right-col { text-align: left; }
-  .s6-intro-p { text-align: left !important; }
+  .s7-intro-p { text-align: left !important; }
 
   /* Quelle nicht mehr ans Bottom pushen — direkt unter Body-Text platzieren */
   .tds-right-col p.tds-source,
@@ -1087,44 +903,44 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     </div>
   </section>
 
-  <!-- ── Section 6 (vormals 7b): SAMINA Logo brand interlude (scroll-scrubbed) ── -->
-  <section id="s7-logo-container">
-    <div id="s7-logo-sticky">
-      <video id="s7-logo-video" muted playsinline webkit-playsinline preload="auto"
+  <!-- ── Section 6: SAMINA Logo brand interlude (scroll-scrubbed) ── -->
+  <section id="s6-logo-container">
+    <div id="s6-logo-sticky">
+      <video id="s6-logo-video" muted playsinline webkit-playsinline preload="auto"
              src="../assets/videos/logo-animation.mp4?v=20260511f"></video>
-      <div id="s7-logo-text" aria-hidden="true">
-        <h2 class="s7-logo-headline">
+      <div id="s6-logo-text" aria-hidden="true">
+        <h2 class="s6-logo-headline">
           <span class="m-line">Longevity</span> <span class="m-line">beginnt</span> <span class="m-line">im Schlaf.</span>
         </h2>
-        <p class="s7-logo-subline">SAMINA. Schlafforschung seit 1989.</p>
+        <p class="s6-logo-subline">SAMINA. Schlafforschung seit 1989.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── Section 7 (vormals 6): Investitions-Frame ── -->
-  <section id="s6" class="tds-section">
-    <div id="s6-header" class="tds-fade-up">
+  <!-- ── Section 7: Investitions-Frame ── -->
+  <section id="s7" class="tds-section">
+    <div id="s7-header" class="tds-fade-up">
       <h2 class="tds-display"><span class="m-line">8 Stunden</span> <span class="m-line">Wirkung.</span> <span class="m-line">Jede Nacht.</span></h2>
-      <div class="s6-right">
-        <p class="s6-intro-p tds-reveal-text">
+      <div class="s7-right">
+        <p class="s7-intro-p tds-reveal-text">
           <span class="tds-reveal-line">120 Tage pro Jahr verbringst du im Bett.</span>
           <span class="tds-reveal-line">Das ist die größte Investition,</span>
           <span class="tds-reveal-line">die du in deine Gesundheit machen kannst.</span>
         </p>
-        <div id="s6-equation">
-          <p class="s6-eq-main">
+        <div id="s7-equation">
+          <p class="s7-eq-main">
             Schlaf wirkt 8 h × 365 Nächte =
-            <span class="s6-eq-bignum"><span class="s4-counter" data-target="2920" data-decimals="0">2.920</span></span>
-            <span class="s6-eq-tail">Stunden jedes Jahr.</span>
+            <span class="s7-eq-bignum"><span class="tds-counter" data-target="2920" data-decimals="0">2.920</span></span>
+            <span class="s7-eq-tail">Stunden jedes Jahr.</span>
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Section 8: Warum SAMINA — scroll-scrubbed assembly with timed text overlays ── -->
+  <!-- ── Section 8: Das SAMINA Schlafsystem — scroll-scrubbed assembly with timed text overlays ── -->
   <!-- Stage timing matches each component clip in warum-samina.mp4 (53.27s, 1080p):
-       0.00 –  5.96   Assembly intro (Warum SAMINA. headline)
+       0.00 –  5.96   Assembly intro (Das SAMINA Schlafsystem. headline)
        5.96 – 13.03   Lamellenrost
       13.03 – 21.60   Lokosana
       21.60 – 28.60   Naturkautschukmatratze
@@ -1137,7 +953,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
              src="../assets/videos/warum-samina.mp4?v=20260511d"></video>
       <div id="s8-overlay">
         <div class="s8-text" data-from="0" data-to="5.96">
-          <h2 id="s8-headline-warum"><span class="m-line">Das</span> <span class="m-line">SAMINA</span> <span class="m-line">Schlafsystem.</span></h2>
+          <h2 id="s8-headline-intro"><span class="m-line">Das</span> <span class="m-line">SAMINA</span> <span class="m-line">Schlafsystem.</span></h2>
         </div>
         <div class="s8-text" data-from="5.96" data-to="13.03">
           <span class="s8-eyebrow">SAMINA Lamellenrost</span>
@@ -1156,7 +972,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
           <h3 class="s8-headline">Individuell anpassbare Nacken-Kopflinie. Für Bauch-, Rücken- und Seitenschläfer.</h3>
         </div>
         <div class="s8-text" data-from="40.23" data-to="46.30">
-          <span class="s8-eyebrow">SAMINA ADRIANO BETTRAHMEN</span>
+          <span class="s8-eyebrow">SAMINA Adriano Bettrahmen</span>
           <h3 class="s8-headline">Inkl. integrierter GRAVITAS&reg; Schrägschlaftechnik mit 3,5° oder 5,5° Neigung zur Förderung des Stoffwechsels.</h3>
         </div>
         <div class="s8-text" data-from="46.30" data-to="53.27">
@@ -1272,10 +1088,9 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   // Same scroll-driven hero on all viewports (mobile uses kürzere Scroll-Distanz via CSS)
   initHeroDesktop();
   initSectionFadeUps();
-  initVideoEmbeds();
   initStatCounters();
   initLineReveals();
-  initS7LogoScrub();
+  initS6LogoScrub();
   initS8Scrub();
 
   // Robust ScrollTrigger refresh — required on iOS/Android where the URL bar
@@ -1295,24 +1110,6 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
   window.addEventListener('orientationchange', function () {
     setTimeout(refreshST, 200);
   });
-
-  function initVideoEmbeds() {
-    document.querySelectorAll('.tds-video-embed').forEach(function (embed) {
-      var ytId = embed.dataset.yt;
-      if (!ytId) return;
-      function play() {
-        if (embed.classList.contains('is-playing')) return;
-        var iframe = document.createElement('iframe');
-        iframe.src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0&modestbranding=1';
-        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
-        iframe.setAttribute('allowfullscreen', '');
-        iframe.setAttribute('title', 'SAMINA Video');
-        embed.appendChild(iframe);
-        embed.classList.add('is-playing');
-      }
-      embed.addEventListener('click', play);
-    });
-  }
 
   function initHeroDesktop() {
     var container   = document.getElementById('s1-container');
@@ -1449,7 +1246,7 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
         return val.toFixed(decimals).replace('.', ',');
       }
     }
-    document.querySelectorAll('.s4-counter').forEach(function (el) {
+    document.querySelectorAll('.tds-counter').forEach(function (el) {
       var target = parseFloat(el.dataset.target);
       if (isNaN(target)) return;
       var prefix = el.dataset.prefix || '';
@@ -1476,10 +1273,10 @@ html, body { margin: 0; padding: 0; background: #f9f8f6; }
     });
   }
 
-  function initS7LogoScrub() {
-    var container = document.getElementById('s7-logo-container');
-    var video     = document.getElementById('s7-logo-video');
-    var textEl    = document.getElementById('s7-logo-text');
+  function initS6LogoScrub() {
+    var container = document.getElementById('s6-logo-container');
+    var video     = document.getElementById('s6-logo-video');
+    var textEl    = document.getElementById('s6-logo-text');
     if (!container || !video) return;
 
     var targetT = 0, lerpT = 0, rafId = null;
